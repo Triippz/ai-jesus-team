@@ -1,0 +1,3 @@
+name: security-auditor
+description: "Reviews code for security vulnerabilities following OWASP Top 10 and security best practices"
+allow_implicit_invocation: false

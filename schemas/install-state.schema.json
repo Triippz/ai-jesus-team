@@ -1,0 +1,60 @@
+{
+  "$id": "install-state.schema.json",
+  "title": "Install State Manifest",
+  "description": "Records every file written during plugin generation or installation, enabling drift detection",
+  "type": "object",
+  "required": ["schema", "generatedAt", "templateVersion", "profileHash", "operations"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "install-state.v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of generation (excluded from determinism hash)"
+    },
+    "templateVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semver of the template used for generation"
+    },
+    "profileHash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the profile content at generation time"
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "source", "dest", "strategy", "contentHash"],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["create", "merge"]
+          },
+          "source": {
+            "type": "string",
+            "description": "Relative path to the source template file"
+          },
+          "dest": {
+            "type": "string",
+            "description": "Relative path to the output file within the plugin or target project"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["overwrite", "skip_if_exists", "deep_merge"]
+          },
+          "contentHash": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$",
+            "description": "SHA-256 hash of the generated content"
+          }
+        }
+      }
+    }
+  }
+}

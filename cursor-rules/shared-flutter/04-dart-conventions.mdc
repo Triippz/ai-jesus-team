@@ -1,0 +1,55 @@
+---
+description: Dart coding conventions
+globs: "**/*.dart"
+alwaysApply: true
+---
+# Dart Conventions
+
+## Effective Dart
+
+Follow Effective Dart guidelines for all code.
+
+## File Size Limits
+
+- **Warning**: 300 lines
+- **Refactor required**: 500 lines
+
+## Generated Files
+
+Never edit generated files:
+- `*.g.dart`
+- `*.freezed.dart`
+- Generated API clients
+- Localization `.g.dart` files
+
+## Language Features
+
+- Use `final` for all variables that don't need reassignment
+- Prefer `const` constructors
+- Null safety — no unnecessary nullable types (`Type?` only when null is a valid state)
+- Proper async/await usage (avoid nested `.then()` chains)
+- Use collection literals over constructors (`[]` not `List()`)
+- Use cascade notation (`..`) for sequential operations on same object
+
+## Imports
+
+```dart
+// Order: dart, package, relative
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../local_file.dart';
+```
+
+## Naming
+
+- Classes: `UpperCamelCase`
+- Files: `snake_case.dart`
+- Variables/functions: `lowerCamelCase`
+- Constants: `lowerCamelCase` (Dart convention, not UPPER_SNAKE)
+- Private members: prefix with `_`
+
+## Linting
+
+Use lints from `analysis_options.yaml` — do not disable lint rules without documented justification.

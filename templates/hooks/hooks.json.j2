@@ -1,0 +1,78 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/session-start.js session-start",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+{% if profile.tier in ["standard", "strict"] %}
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/block-main-branch.js block-main-branch"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/commit-msg-check.js commit-msg-check"
+          },
+{% endif %}
+{% if profile.tier == "strict" %}
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/tdd-guard.js tdd-guard"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/gateguard.js gateguard"
+          },
+{% endif %}
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/session-start.js session-start"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
+          }{% if profile.tier in ["standard", "strict"] %},
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
+          }{% endif %}
+
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+{% if profile.tier in ["standard", "strict"] %}
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
+          },
+{% endif %}
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
+          }
+        ]
+      }
+    ]
+  }
+}

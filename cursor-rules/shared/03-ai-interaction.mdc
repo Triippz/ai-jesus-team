@@ -1,0 +1,36 @@
+---
+description: Rules for AI assistant interaction and workflow
+globs:
+alwaysApply: true
+---
+# AI Interaction
+
+## Workflow
+
+Follow this workflow for any non-trivial task:
+
+1. **Brainstorm** — Explore design ideas and constraints
+2. **Plan** — Create an implementation plan with clear steps
+3. **TDD** — Write tests before implementation
+4. **Execute** — Implement against the plan and tests
+5. **Review** — Code review for architecture, quality, security
+6. **Verify** — Run tests, lint, type-check
+7. **Finish** — Update docs, prepare branch
+
+## Mandatory Rules
+
+- Always check for relevant skills/agents before starting work
+- TDD is enforced — write tests before implementation
+- Don't edit generated files (*.g.dart, *.freezed.dart, generated clients, etc.)
+- Don't edit .env or secret files
+- Don't edit CI/CD pipelines without explicit permission
+- Ask before destructive operations (delete, force push, reset --hard)
+- Use worktrees for isolated feature work when available
+
+## Communication
+
+- State your plan before executing
+- Report what you changed and why
+- Flag risks, trade-offs, and assumptions
+- Ask clarifying questions rather than guessing
+- If a task is ambiguous, propose options rather than picking one silently

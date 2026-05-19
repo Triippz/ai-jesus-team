@@ -1,0 +1,41 @@
+---
+description: Flutter testing patterns
+globs: "**/*_test.dart"
+alwaysApply: true
+---
+# Flutter Testing
+
+## Test Types
+
+- **Widget tests** for UI components
+- **Unit tests** for business logic (services, repositories, utilities)
+- **Integration tests** for full user flows
+
+## Rules
+
+- No mocking of databases — use real in-memory databases
+- Use `pump()` for single frame advance, `pumpAndSettle()` for animations to complete
+- Test error states and edge cases, not just happy paths
+- Golden tests for visual regression (optional but recommended)
+- Follow AAA pattern: Arrange, Act, Assert
+
+## Integration Test Navigation
+
+- Use the AppRouter, initialize the first route
+- Navigate using tap-on-button approach (simulate real user behavior)
+- Avoid manual widget pumping or manual router navigation in integration tests
+
+## Test Structure
+
+```
+test/
+  unit/          # Business logic tests
+  widget/        # Widget tests
+  integration/   # Full flow tests
+```
+
+## Coverage
+
+- 80%+ coverage for business logic
+- All reusable components must have widget tests
+- Critical user flows must have integration tests

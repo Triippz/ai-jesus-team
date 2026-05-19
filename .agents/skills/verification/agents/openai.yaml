@@ -1,0 +1,3 @@
+name: verification
+description: "Run all verification checks: tests, linting, type checking, and build validation"
+allow_implicit_invocation: false

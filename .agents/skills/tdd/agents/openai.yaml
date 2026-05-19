@@ -1,0 +1,3 @@
+name: tdd
+description: "Write tests before implementation using the Red-Green-Refactor cycle"
+allow_implicit_invocation: false

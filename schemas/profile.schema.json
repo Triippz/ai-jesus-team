@@ -1,0 +1,114 @@
+{
+  "$id": "profile.schema.json",
+  "title": "Project Profile",
+  "description": "Defines a project's tech stack, conventions, and review thresholds for plugin generation",
+  "type": "object",
+  "required": ["name", "stack", "orm", "test_framework", "concurrency_model", "ci_platform"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Project name used for plugin directory naming"
+    },
+    "stack": {
+      "type": "object",
+      "required": ["language", "framework"],
+      "additionalProperties": false,
+      "properties": {
+        "language": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Primary programming language"
+        },
+        "framework": {
+          "type": "string",
+          "description": "Primary framework (empty string if none)"
+        }
+      }
+    },
+    "orm": {
+      "type": ["string", "null"],
+      "description": "ORM or database access library (null if none)"
+    },
+    "test_framework": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary test framework"
+    },
+    "concurrency_model": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary concurrency model (e.g., tokio, celery, goroutines, deno-async, dart-isolates)"
+    },
+    "ci_platform": {
+      "type": "string",
+      "enum": ["gitlab", "github", "none"],
+      "description": "CI/CD platform"
+    },
+    "review_thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "function_length": { "type": "integer", "minimum": 1 },
+        "cyclomatic_complexity": { "type": "integer", "minimum": 1 },
+        "nesting_depth": { "type": "integer", "minimum": 1 },
+        "parameters": { "type": "integer", "minimum": 1 }
+      },
+      "description": "Override per-language default thresholds"
+    },
+    "hook_profile": {
+      "type": "string",
+      "enum": ["minimal", "standard", "strict"],
+      "default": "standard",
+      "description": "Hook enforcement level"
+    },
+    "additional_agents": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Additional agent file paths to include verbatim"
+    },
+    "knowledge_overrides": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Map of knowledge file names to override content"
+    },
+    "deploy_target": {
+      "type": "string",
+      "description": "Deployment target (e.g., deno-deploy, ecs-fargate, play-store)"
+    },
+    "auth_model": {
+      "type": "string",
+      "description": "Authentication model (e.g., supabase-auth, jwt-simplejwt, ucan)"
+    },
+    "serialization_format": {
+      "type": "string",
+      "description": "Primary wire format (e.g., json, postcard, protobuf)"
+    },
+    "database": {
+      "type": "string",
+      "description": "Primary database (e.g., postgresql, sqlite, supabase)"
+    },
+    "message_broker": {
+      "type": "string",
+      "description": "Message broker (e.g., nats, redis, celery)"
+    },
+    "feature_flag_system": {
+      "type": "string",
+      "description": "Feature flag system (e.g., unleash, none)"
+    },
+    "observability_stack": {
+      "type": "string",
+      "description": "Observability stack (e.g., otel+grafana, sentry, otel+sentry)"
+    },
+    "commit_format": {
+      "type": "string",
+      "description": "Commit message format (e.g., type(scope): desc, type: [scope] desc)"
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Arbitrary key-value pairs for template-specific customization"
+    }
+  }
+}

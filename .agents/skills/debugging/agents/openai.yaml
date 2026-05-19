@@ -1,0 +1,3 @@
+name: debugging
+description: "Systematic debugging workflow: understand, reproduce, isolate, fix, verify"
+allow_implicit_invocation: false

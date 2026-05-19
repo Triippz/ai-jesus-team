@@ -1,0 +1,26 @@
+{
+  "name": "dev-ai-utilities",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Plugin template factory for Claude Code — generates, installs, and maintains tailored project plugins",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "install-plugin": "node scripts/install-plugin.js",
+    "doctor": "node scripts/doctor.js",
+    "repair": "node scripts/repair.js",
+    "test": "node --test tests/templates/*.test.js tests/factory/*.test.js tests/schemas/*.test.js tests/conformance/*.test.js",
+    "test:factory": "node --test tests/factory/*.test.js",
+    "test:conformance": "node --test tests/conformance/*.test.js",
+    "test:schemas": "node --test tests/schemas/*.test.js",
+    "test:templates": "node --test tests/templates/*.test.js",
+    "validate:schemas": "node scripts/validate-schemas.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

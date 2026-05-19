@@ -1,0 +1,42 @@
+{
+  "$id": "orchestrator-aggregation.schema.json",
+  "title": "Orchestrator Aggregation Report",
+  "description": "Schema for aggregated review output from the orchestrator after dispatching all review agents",
+  "type": "object",
+  "required": ["healthScore", "agentResults", "summary"],
+  "additionalProperties": false,
+  "properties": {
+    "healthScore": {
+      "type": "string",
+      "enum": ["HEALTHY", "NEEDS_ATTENTION", "CRITICAL"],
+      "description": "Per review-rubric.md: HEALTHY = 0 fail AND ≤2 warn; NEEDS_ATTENTION = 1-2 fail OR 3+ warn; CRITICAL = 3+ fail OR any security-review fail"
+    },
+    "agentResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["agent", "status", "issueCount"],
+        "additionalProperties": false,
+        "properties": {
+          "agent": {
+            "type": "string",
+            "description": "Agent filename without extension"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pass", "warn", "fail", "skip"]
+          },
+          "issueCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Top 3 priorities synthesized across all agent findings"
+    }
+  }
+}

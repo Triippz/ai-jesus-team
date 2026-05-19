@@ -1,0 +1,3 @@
+name: spec-driven-development
+description: "Multi-phase spec/PRD authoring with adversarial review and deterministic validation"
+allow_implicit_invocation: false

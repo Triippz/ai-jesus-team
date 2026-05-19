@@ -1,0 +1,3 @@
+name: orchestrator
+description: "Routes work to domain agents and enforces the standard development workflow sequence"
+allow_implicit_invocation: false

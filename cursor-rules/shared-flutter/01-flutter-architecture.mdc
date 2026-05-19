@@ -1,0 +1,40 @@
+---
+description: Flutter architecture patterns for AOK and Atlas
+globs: "**/*.dart"
+alwaysApply: true
+---
+# Flutter Architecture
+
+## Directory Structure
+
+Use feature-based directory structure:
+```
+lib/
+  feature_name/
+    data/           # Repositories, data sources, models
+    domain/         # Business logic, entities, use cases
+    presentation/   # UI widgets, pages, state
+```
+
+## Patterns
+
+- Separate UI from business logic — no business logic in widgets
+- Use repository pattern for data access
+- Prefer composition over inheritance
+- Use const constructors wherever possible
+- Proper widget lifecycle management (dispose streams, controllers, listeners)
+- Navigator 2.0 / go_router for navigation
+
+## Widget Design
+
+- Keep build methods focused — extract sub-widgets when build exceeds 40 lines
+- Prefer StatelessWidget when no mutable state is needed
+- Use keys properly for widget identity in lists
+- Avoid GlobalKey unless absolutely necessary
+
+## Dependency Injection
+
+- Register dependencies in dedicated files, not inline
+- Use lazy singletons for expensive services
+- Use factories for per-use instances
+- Reset DI container in test setUp

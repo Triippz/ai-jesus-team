@@ -1,0 +1,37 @@
+---
+description: Flutter state management patterns
+globs: "**/*.dart"
+alwaysApply: true
+---
+# Flutter State Management
+
+## Per-Project Choices
+
+- **AOK**: BLoC pattern for state management
+- **Atlas**: GetIt (`DI<T>()`), `ValueNotifier`, RxDart `BehaviorSubject`, feature `ViewModel` + `ValueNotifier<ScreenState>`, `UiEffect` for transient feedback, `ChangeNotifier` for lightweight app UI — full detail in synced rule `07-flutter-mobile-architecture.mdc` (applies to `apps/atlas_mobile/**/*.dart`)
+
+## Universal Principles
+
+- Keep state immutable (Freezed recommended for data classes)
+- Single source of truth per feature
+- Reactive patterns for data streams
+- Proper error state handling — every async operation needs error + loading states
+- Loading state for all async operations
+
+## State Design
+
+```dart
+// Every feature state should handle:
+// - Initial/idle state
+// - Loading state
+// - Success state with data
+// - Error state with message/type
+```
+
+## Rules
+
+- Never mutate state directly — always emit/set new state
+- Dispose controllers, streams, and subscriptions in dispose()
+- Avoid storing derived data in state — compute from source
+- Keep state as flat as possible — avoid deeply nested state objects
+- Use sealed classes or enums for state variants

@@ -1,0 +1,33 @@
+{
+  "name": "nuv",
+  "stack": {
+    "language": "typescript",
+    "framework": "hono"
+  },
+  "orm": null,
+  "test_framework": "deno-test",
+  "concurrency_model": "deno-async",
+  "ci_platform": "github",
+  "review_thresholds": {
+    "function_length": 25,
+    "cyclomatic_complexity": 10,
+    "nesting_depth": 4,
+    "parameters": 4
+  },
+  "hook_profile": "standard",
+  "deploy_target": "deno-deploy",
+  "auth_model": "supabase-auth",
+  "serialization_format": "json",
+  "database": "supabase",
+  "observability_stack": "otel+sentry",
+  "commit_format": "type(scope): description",
+  "extensions": {
+    "runtime": "deno",
+    "ui_library": "htmx+alpinejs",
+    "css_framework": "tailwind+daisyui",
+    "validation": "valibot",
+    "e2e_framework": "playwright",
+    "payments": "lemonsqueezy",
+    "hosting": "deno-deploy"
+  }
+}

@@ -1,0 +1,3 @@
+name: test-automator
+description: "Designs test strategy, identifies coverage gaps, and writes tests following project-specific patterns"
+allow_implicit_invocation: false

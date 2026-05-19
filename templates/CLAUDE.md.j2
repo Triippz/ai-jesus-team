@@ -1,0 +1,171 @@
+# {{profile.name}}
+
+{% if profile.stack.framework %}
+**Stack:** {{profile.stack.language}} / {{profile.stack.framework}}
+{% else %}
+**Stack:** {{profile.stack.language}}
+{% endif %}
+
+This file is loaded every Claude Code session. Keep additions minimal — under 800 tokens total.
+
+## Slash Commands
+
+| Command | Purpose |
+|---|---|
+| `/brainstorm` | Explore requirements and design before writing code |
+| `/spec` | Author a granular spec/PRD for complex features |
+| `/write-plan` | Produce a step-by-step implementation plan |
+| `/tdd` | Write failing tests first — required before `/execute-plan` |
+| `/execute-plan` | Implement against an approved plan with TDD enforcement |
+| `/debug` | Investigate bugs before proposing fixes |
+| `/review` | Dispatch the full review agent suite |
+| `/verify` | Run tests, linter, and type checker |
+| `/finish` | Update docs and prepare branch for merge |
+
+## Agent Catalog
+
+### Team Agents (this plugin)
+
+| Agent | Model | Role |
+|---|---|---|
+| orchestrator | Sonnet | Central dispatcher — workflow routing and phase gating |
+
+### Review Agents (this plugin)
+
+| Agent | Model | Role |
+|---|---|---|
+| spec-compliance-review | Sonnet | First gate — verifies spec coverage and blocks scope creep |
+| structure-review | Sonnet | File/module organization and separation of concerns |
+| complexity-review | Haiku | Function length, cyclomatic complexity, nesting depth |
+| naming-review | Haiku | Identifier naming conventions for {{profile.stack.language}} |
+| performance-review | Haiku | Hot-path structural patterns and performance anti-patterns |
+| progress-guardian | Haiku | Detects AI shortcuts and stubs that bypass real implementation |
+| test-review | Sonnet | Farley Score test quality assessment |
+| doc-review | Sonnet | Documentation completeness and accuracy |
+| concurrency-review | Sonnet | Async/concurrent code correctness |
+| domain-review | Opus | Domain model health and DDD pattern compliance |
+
+### Core Agents (core-superpowers plugin)
+
+| Agent | Role |
+|---|---|
+| security-auditor | Security vulnerabilities and attack surface analysis |
+| arch-reviewer | Architectural integrity and structural decisions |
+| code-reviewer | Code quality and readability |
+| debugger | Bug investigation and root cause analysis |
+
+## Workflow
+
+```
+brainstorm → write-plan → tdd → execute-plan → review → verify → finish
+```
+
+`/spec` replaces `brainstorm + write-plan` for complex or contractual work.
+
+## Build and Test Commands
+
+{% if profile.stack.language == "rust" %}
+```bash
+cargo build          # compile
+cargo test           # run all tests
+cargo clippy         # lint
+cargo fmt            # format
+cargo nextest run    # faster test runner (if installed)
+```
+{% endif %}
+{% if profile.stack.language == "python" %}
+```bash
+pytest               # run all tests
+pytest -x            # stop on first failure
+ruff check .         # lint
+ruff format .        # format
+mypy .               # type check
+```
+{% endif %}
+{% if profile.stack.language == "dart" %}
+```bash
+flutter test         # run all tests
+flutter analyze      # lint and type check
+dart format .        # format
+flutter build apk    # build (adjust target as needed)
+```
+{% endif %}
+{% if profile.stack.language == "go" %}
+```bash
+go test ./...        # run all tests
+go vet ./...         # vet
+gofmt -w .           # format
+go build ./...       # compile
+staticcheck ./...    # static analysis (if installed)
+```
+{% endif %}
+{% if profile.stack.language == "typescript" %}
+```bash
+deno test            # run all tests
+deno lint            # lint
+deno fmt             # format
+deno check **/*.ts   # type check
+```
+{% endif %}
+{% if profile.stack.language not in ["rust", "python", "dart", "go", "typescript"] %}
+# Run the appropriate build and test commands for {{profile.stack.language}}.
+# Update this section with project-specific commands.
+{% endif %}
+
+## Coding Conventions
+
+{% if profile.stack.language == "rust" %}
+- Prefer `Result<T, E>` and `?` over `unwrap()` in production paths.
+- Use `thiserror` for library errors, `anyhow` for application errors.
+- Prefer `Arc<Mutex<T>>` over global mutable state.
+- Name types in `UpperCamelCase`, functions and variables in `snake_case`.
+- Keep functions under 50 lines; cyclomatic complexity under 10.
+{% endif %}
+{% if profile.stack.language == "python" %}
+- Follow PEP 8. Ruff is the enforcer — do not suppress without comment.
+- Type-annotate all public functions and methods.
+- Use dataclasses or Pydantic models instead of plain dicts for structured data.
+- Keep functions under 20 lines (excluding docstrings); cyclomatic complexity under 10.
+- Business logic lives in service modules, not in views or serializers.
+{% endif %}
+{% if profile.stack.language == "dart" %}
+- Follow Dart effective style. `dart format` is non-negotiable.
+- Use `freezed` for immutable domain models.
+- BLoC/Cubit delegates to use-cases; no domain logic in event handlers.
+- Keep widget build methods under 30 lines; extract sub-widgets for clarity.
+- Prefer `const` constructors wherever possible.
+{% endif %}
+{% if profile.stack.language == "go" %}
+- Follow the official Go style guide. `gofmt` is non-negotiable.
+- Return errors explicitly; never ignore `err` return values.
+- Use `context.Context` as the first parameter for I/O-bound functions.
+- Keep functions under 50 lines; cyclomatic complexity under 15.
+- Table-driven tests are the standard for unit tests.
+{% endif %}
+{% if profile.stack.language == "typescript" %}
+- TypeScript strict mode is always on. No `any` without a suppression comment.
+- Prefer interfaces over type aliases for object shapes.
+- Use destructured options objects when a function takes more than 3 parameters.
+- Keep functions under 25 lines; cyclomatic complexity under 10.
+- Async/await over raw Promise chains.
+{% endif %}
+{% if profile.stack.language not in ["rust", "python", "dart", "go", "typescript"] %}
+# Add {{profile.stack.language}}-specific coding conventions here.
+{% endif %}
+
+## Commit Format
+
+{% if profile.commit_format %}
+```
+{{profile.commit_format}}
+```
+{% else %}
+```
+type: [scope] description
+
+Allowed types: feat, fix, docs, refactor, test, perf, build, ci, chore
+Example: feat: add user authentication
+```
+{% endif %}
+
+No AI attribution in commit messages. No Co-Authored-By lines referencing AI tools.

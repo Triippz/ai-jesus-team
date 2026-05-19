@@ -1,0 +1,3 @@
+name: finishing-branch
+description: "Prepare a feature branch for merge with final checks, docs, and clean history"
+allow_implicit_invocation: false

@@ -1,0 +1,3 @@
+name: merge-request
+description: "Push branch and create a GitLab merge request via glab CLI"
+allow_implicit_invocation: false

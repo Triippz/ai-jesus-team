@@ -1,0 +1,26 @@
+---
+description: Required external tools for workflow skills
+globs:
+alwaysApply: true
+---
+# Tool Prerequisites
+
+## GitLab CLI (glab)
+
+Required for merge request and code review workflows.
+
+- **Install:** `brew install glab`
+- **Authenticate:** `glab auth login`
+- **Used by:** `/mr` (create merge requests), `/resolve-reviews` (fetch/reply to MR comments)
+
+If `glab` is not installed or not authenticated, these workflows will not function. Check with `glab --version` and `glab auth status`.
+
+## Atlassian MCP Server (optional)
+
+Required for JIRA integration workflows. Not needed if your team does not use JIRA.
+
+- **Install:** In Claude Code, run `/plugin` and install "Atlassian". In Cursor, add the Atlassian MCP server to `~/.cursor/mcp.json`. In Codex, add to `~/.codex/config.toml`.
+- **Authenticate:** In Claude Code, run `/mcp` and select Atlassian. Other tools follow their MCP auth flow.
+- **Used by:** `/plan-to-jira` (create JIRA issues from plans), `/update-jira` (update issues with implementation details), auto-transitions in `/execute-plan` and `/finish`
+
+JIRA features are fully optional. All non-JIRA skills work without it. The `/execute-plan` and `/finish` skills silently skip JIRA transitions when no `.jira-map.json` linkage file exists.

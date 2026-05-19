@@ -1,0 +1,3 @@
+name: resolve-reviews
+description: "Fetch unresolved GitLab MR review comments, research and triage each, implement fixes, reply to all threads with evidence-backed rationale, and resolve discussions"
+allow_implicit_invocation: false

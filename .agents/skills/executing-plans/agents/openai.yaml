@@ -1,0 +1,3 @@
+name: executing-plans
+description: "Implement code against an existing plan and tests, following plan steps methodically"
+allow_implicit_invocation: false

@@ -1,0 +1,19 @@
+{
+  "name": "core-superpowers",
+  "description": "Universal AI development workflow: spec-driven development, TDD, debugging, code review, verification, and workflow automation for all projects",
+  "version": "1.2.0",
+  "author": {
+    "name": "Mark Tripoli"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "workflow",
+    "spec-driven-development",
+    "sdd",
+    "tdd",
+    "code-review",
+    "debugging",
+    "agents",
+    "skills"
+  ]
+}

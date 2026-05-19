@@ -1,0 +1,44 @@
+---
+description: Git workflow rules for all repositories
+globs:
+alwaysApply: true
+---
+# Git Workflow
+
+## Commit Format
+
+Use conventional commits: `type: [scope] description`
+
+Allowed types: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `build`, `ci`, `chore`
+
+Examples:
+```
+feat: [auth] add JWT refresh token rotation
+fix: [sync] resolve delta cursor pagination
+refactor: [api] extract shared validation logic
+```
+
+## Rules
+
+- No AI attribution in commits (no Co-Authored-By AI lines)
+- Never force push to main/master
+- Always use explicit file names with `git add` (never `git add .` or `git add -A`)
+- Create feature branches for non-trivial changes
+- Commit often with small, focused commits
+- Each commit should compile and pass tests independently
+- Write commit messages that explain **why**, not just **what**
+
+## Branch Naming
+
+```
+feature/<description>
+bugfix/<description>
+hotfix/<description>
+refactor/<description>
+```
+
+## Merge Strategy
+
+- Rebase feature branches before merging
+- Squash merge only when commit history is noisy
+- Delete branches after merge

@@ -1,0 +1,3 @@
+name: debugger
+description: "Structured debugging: reproduce, isolate, fix, and verify with regression tests"
+allow_implicit_invocation: false

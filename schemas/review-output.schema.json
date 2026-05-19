@@ -1,0 +1,54 @@
+{
+  "$id": "review-output.schema.json",
+  "title": "Review Agent Output",
+  "description": "Uniform JSON envelope produced by every specialist review agent",
+  "type": "object",
+  "required": ["status", "issues", "summary"],
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["pass", "warn", "fail", "skip"]
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "confidence", "file", "line", "message", "suggestedFix"],
+        "additionalProperties": false,
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["error", "warning", "suggestion"]
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "none"]
+          },
+          "file": {
+            "type": "string",
+            "pattern": "^[^/]",
+            "description": "Repo-relative POSIX path, no leading slash"
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "1-indexed line number"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "suggestedFix": {
+            "type": "string",
+            "description": "Concrete fix suggestion (empty string if none)"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

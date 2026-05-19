@@ -1,0 +1,56 @@
+{
+  "$id": "plugin-manifest.schema.json",
+  "title": "Plugin Manifest",
+  "description": "Schema for plugin.json — Claude Code plugin metadata. additionalProperties is intentionally true for forward compatibility as the Claude Code plugin system evolves.",
+  "type": "object",
+  "required": ["name", "version"],
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dependencies": {
+      "type": "object"
+    },
+    "hooks": {
+      "type": "array"
+    },
+    "agents": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "commands": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "mcpServers": {
+      "type": "object"
+    },
+    "settings": {
+      "type": "object"
+    }
+  }
+}

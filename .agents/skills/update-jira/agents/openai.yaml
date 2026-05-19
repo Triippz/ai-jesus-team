@@ -1,0 +1,3 @@
+name: update-jira
+description: "Update JIRA issues with implementation details, QA test steps, and code change summaries after work is complete"
+allow_implicit_invocation: false

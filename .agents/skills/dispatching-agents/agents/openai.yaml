@@ -1,0 +1,3 @@
+name: dispatching-agents
+description: "Run multiple independent tasks in parallel using agents"
+allow_implicit_invocation: false

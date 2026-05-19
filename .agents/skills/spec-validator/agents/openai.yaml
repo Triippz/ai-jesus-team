@@ -1,0 +1,3 @@
+name: spec-validator
+description: "Read-only structural validator for spec/plan/tasks — deterministic READY/BLOCKED verdict"
+allow_implicit_invocation: false

@@ -1,0 +1,59 @@
+{
+  "$id": "conformance-report.schema.json",
+  "title": "Conformance Report",
+  "description": "Schema for doctor command output — reports drift status of every installed plugin file",
+  "type": "object",
+  "required": ["schema", "checkedAt", "summary", "files"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "conformance-report.v1"
+    },
+    "checkedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "object",
+      "required": ["okCount", "driftedCount", "missingCount", "protectedCount", "errorCount"],
+      "additionalProperties": false,
+      "properties": {
+        "okCount": { "type": "integer", "minimum": 0 },
+        "driftedCount": { "type": "integer", "minimum": 0 },
+        "missingCount": { "type": "integer", "minimum": 0 },
+        "protectedCount": { "type": "integer", "minimum": 0 },
+        "errorCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Relative path within the target project"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ok", "drifted", "missing", "protected", "error"]
+          },
+          "expectedHash": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "actualHash": {
+            "oneOf": [
+              { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+              { "type": "null" }
+            ],
+            "description": "SHA-256 hash of on-disk content. null when file is missing."
+          }
+        }
+      }
+    }
+  }
+}

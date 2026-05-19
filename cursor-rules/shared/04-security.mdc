@@ -1,0 +1,47 @@
+---
+description: Security rules for all projects
+globs:
+alwaysApply: true
+---
+# Security
+
+## Secrets Management
+
+- Never hardcode secrets, API keys, tokens, or passwords
+- Use environment variables for configuration
+- Never commit .env files, credentials.json, or key files
+- Rotate secrets if accidentally exposed
+
+## Input Handling
+
+- Validate all user input at the boundary
+- Use parameterized queries (never string concatenation for SQL)
+- Sanitize data before rendering (prevent XSS)
+- Validate file uploads (type, size, content)
+
+## Dependencies
+
+- Keep dependencies updated
+- Review changelogs before major version bumps
+- Pin dependency versions in production
+- Audit dependencies for known vulnerabilities
+
+## OWASP Top 10
+
+Follow OWASP top 10 guidelines:
+1. Broken Access Control — enforce authorization at every layer
+2. Cryptographic Failures — use standard libraries, not custom crypto
+3. Injection — parameterize all queries
+4. Insecure Design — threat model before building
+5. Security Misconfiguration — secure defaults, no debug in production
+6. Vulnerable Components — keep dependencies patched
+7. Authentication Failures — use proven auth libraries
+8. Data Integrity Failures — verify signatures and checksums
+9. Logging Failures — log security events, never log secrets
+10. SSRF — validate and restrict outbound requests
+
+## Network
+
+- Use HTTPS/TLS for all external communication
+- Validate certificates
+- Use least-privilege for service accounts and IAM roles

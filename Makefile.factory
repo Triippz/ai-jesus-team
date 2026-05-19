@@ -1,0 +1,47 @@
+# Plugin Factory Targets — append to main Makefile
+# To use: copy the content below into the Makefile
+
+# --- Factory CLI commands ---
+
+generate:
+	node scripts/generate.js $(ARGS)
+
+install-plugin:
+	node scripts/install-plugin.js $(ARGS)
+
+doctor:
+	node scripts/doctor.js $(ARGS)
+
+repair:
+	node scripts/repair.js $(ARGS)
+
+# --- Factory test targets ---
+
+test-factory:
+	node --test tests/factory/*.test.js
+
+test-conformance:
+	node --test tests/conformance/*.test.js
+
+test-schemas:
+	node --test tests/schemas/*.test.js
+
+test-templates:
+	node --test tests/templates/*.test.js
+
+validate-schemas:
+	node scripts/validate-schemas.js
+
+test-determinism:
+	@echo "Generating all plugins twice and comparing hashes..."
+	node scripts/generate.js --profile profiles/nuv.json --output /tmp/det-test-1/nuv
+	node scripts/generate.js --profile profiles/nuv.json --output /tmp/det-test-2/nuv
+	diff -r /tmp/det-test-1/nuv /tmp/det-test-2/nuv && echo "PASS: deterministic" || (echo "FAIL: non-deterministic output" && exit 1)
+	@rm -rf /tmp/det-test-1 /tmp/det-test-2
+
+test-idempotency:
+	@echo "Generating plugin, then regenerating and checking for changes..."
+	node scripts/generate.js --profile profiles/nuv.json --output /tmp/idem-test/nuv
+	node scripts/generate.js --profile profiles/nuv.json --output /tmp/idem-test/nuv --json > /tmp/idem-test/result.json
+	node -e "const r=JSON.parse(require('fs').readFileSync('/tmp/idem-test/result.json','utf8')); if(r.summary.created>0||r.summary.updated>0) { console.error('FAIL: non-idempotent', r.summary); process.exit(1); } else { console.log('PASS: idempotent', r.summary); }"
+	@rm -rf /tmp/idem-test

@@ -1,0 +1,46 @@
+{
+  "$id": "hooks-registry.schema.json",
+  "title": "Hooks Registry",
+  "description": "Schema for hooks.json — declares hook registrations for a Claude Code plugin",
+  "type": "object",
+  "required": ["hooks"],
+  "additionalProperties": false,
+  "properties": {
+    "hooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "event", "matcher", "command"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Stable identifier for surgical enable/disable"
+          },
+          "event": {
+            "type": "string",
+            "enum": ["SessionStart", "PreToolUse", "PostToolUse", "PreCompact", "Stop", "SessionEnd"]
+          },
+          "matcher": {
+            "type": "string",
+            "description": "Tool matcher pattern (e.g., 'Write|Edit', 'Bash', '*')"
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Command to execute (may use ${PLUGIN_ROOT} placeholder)"
+          },
+          "profiles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["minimal", "standard", "strict"]
+            },
+            "description": "Which hook profiles activate this hook"
+          }
+        }
+      }
+    }
+  }
+}

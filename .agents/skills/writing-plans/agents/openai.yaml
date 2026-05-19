@@ -1,0 +1,3 @@
+name: writing-plans
+description: "Create structured implementation plans that guide development from design through completion"
+allow_implicit_invocation: false

@@ -1,0 +1,44 @@
+---
+description: Universal code quality rules for all repositories
+globs:
+alwaysApply: true
+---
+# Code Quality
+
+## Size Limits
+
+- Functions under 40 lines
+- Max 3-4 levels of nesting
+- Use early returns to reduce nesting depth
+
+## Principles
+
+- **DRY**: Extract at 3+ occurrences into reusable functions/modules
+- **KISS**: Simplest solution that works; avoid premature optimization
+- **YAGNI**: Don't build until needed; delete speculative code
+- **SOLID**: Single responsibility, open/closed, Liskov substitution, interface segregation, dependency inversion
+
+## Naming
+
+- Clear naming over comments
+- Variables: describe what it holds, not the type
+- Functions: describe what it does with a verb
+- Booleans: use `is`, `has`, `should`, `can` prefixes
+- Constants: UPPER_SNAKE_CASE for true constants
+
+## Code Hygiene
+
+- No magic literals — use named constants
+- No dead code — delete unused code immediately
+- No commented-out code — use version control
+- No print/console.log in production code — use proper logging
+- No swallowed errors — handle or propagate every error
+- No `TODO` without a ticket reference
+
+## Error Handling
+
+- Handle errors at the appropriate level
+- Provide meaningful error messages
+- Use typed errors/exceptions, not generic ones
+- Never silently ignore failures
+- Log errors with enough context to debug

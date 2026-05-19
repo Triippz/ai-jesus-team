@@ -1,0 +1,190 @@
+{
+  "schema": "install-state.v1",
+  "generatedAt": "2026-05-19T15:13:47.892Z",
+  "templateVersion": "2.0.0",
+  "profileHash": "sha256:61392fa05dd239154df2f14cab3bb262d68b48f6d55dbb0945003ffffa402e8a",
+  "operations": [
+    {
+      "kind": "create",
+      "source": "AGENTS.md.j2",
+      "dest": "AGENTS.md",
+      "strategy": "skip_if_exists",
+      "contentHash": "sha256:5c527229da2527e68f5cbbda074b01f6bae5c54318507315ec3ae33062a12445"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/complexity-review.md.j2",
+      "dest": "agents/review/complexity-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:7bee20d05885476a41477d045cfe1217707e0057d79974c2cd120cc3063adbb4"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/concurrency-review.md.j2",
+      "dest": "agents/review/concurrency-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:d79c001ace43fe92125b0b34ec9960c075ff27b78313ec1215a289b3e4a4fff4"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/doc-review.md.j2",
+      "dest": "agents/review/doc-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:dd21f64b64452b0498bc5711b741e51ffda86c3554791b77b8e30636fd399ed6"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/domain-review.md.j2",
+      "dest": "agents/review/domain-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:f6d96ed005b8556afd4a8489808b74273959160daab7755ae454e2bc844b226f"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/naming-review.md.j2",
+      "dest": "agents/review/naming-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:b7c2e7db7053c0912fc893c18f8661d19c3900ca5c1d0ceccb70103889ff0327"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/performance-review.md.j2",
+      "dest": "agents/review/performance-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:da940bee0b55117517f1d50f7744ee8c78034770e3ded0209a7fa932e6b18952"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/progress-guardian.md.j2",
+      "dest": "agents/review/progress-guardian.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:8f48bb5794152634620c791744399fe89cda6d35a8e1c4cead0155a2fbf21831"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/spec-compliance-review.md.j2",
+      "dest": "agents/review/spec-compliance-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:e163924353422b2a0bd3984fae068f0194798b0ade86a3afc1a1c8669ad3fb0e"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/structure-review.md.j2",
+      "dest": "agents/review/structure-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:2c0221cd5af7f2001b88f3a2a62d0bcfed6583c000c34527b01a591f011c478e"
+    },
+    {
+      "kind": "create",
+      "source": "agents/review/test-review.md.j2",
+      "dest": "agents/review/test-review.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:ba0d903f4397b9ce2f395f8aa9c724dfdf450932ebc1c5ebf4d7a355716d4f1e"
+    },
+    {
+      "kind": "create",
+      "source": "agents/team/orchestrator.md.j2",
+      "dest": "agents/team/orchestrator.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:fbfe0686e313af44cc31907346ede01da4c41bd32d56590efaeb043a70bf9692"
+    },
+    {
+      "kind": "create",
+      "source": "CLAUDE.md.j2",
+      "dest": "CLAUDE.md",
+      "strategy": "skip_if_exists",
+      "contentHash": "sha256:0f9c9c5dd6ad9d03f989c4679b2294e5df6ea9f63eb3c3f764c47367c6754e7b"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/dispatcher.js",
+      "dest": "hooks/dispatcher.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:9fcd721fca1e0186d9490d3e2280248399e8a38ef993f6283f7d5a3a3f1b2847"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/gateguard.js",
+      "dest": "hooks/gateguard.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:73bc5cafdd32b8c4900a69d9d3691105a85e6236db0befd6a75f5cddcb4bc703"
+    },
+    {
+      "kind": "merge",
+      "source": "hooks/hooks.json.j2",
+      "dest": "hooks/hooks.json",
+      "strategy": "deep_merge",
+      "contentHash": "sha256:a9ef3a9c1db5b744734a0536efb4a1d546516cd2a90a8bb761f511ad66613691"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/run-with-flags.js",
+      "dest": "hooks/run-with-flags.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:21ebd7f2b908344706ff46b45065a12d248ffb8314abf199561faa25cbddcaec"
+    },
+    {
+      "kind": "create",
+      "source": "knowledge/accepted-risks-schema.md",
+      "dest": "knowledge/accepted-risks-schema.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:7eac597dc35b34809efebbf681437b29738c90d3b529cff7287ba14c7984132d"
+    },
+    {
+      "kind": "create",
+      "source": "knowledge/owasp-detection.md",
+      "dest": "knowledge/owasp-detection.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:3dbfa509fd436931a043498298f584ec81c8d90b89b6d8942f69a5bc3bbe95cb"
+    },
+    {
+      "kind": "create",
+      "source": "knowledge/review-rubric.md",
+      "dest": "knowledge/review-rubric.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:7d58f64eb0e86718f5837d68f7a1f3997d7db00a0d69ec78808dce6a2d7c78e6"
+    },
+    {
+      "kind": "create",
+      "source": "knowledge/review-template.md",
+      "dest": "knowledge/review-template.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:d3ac81a6be3e42850acbfc2edb013a827505d71a4584cf64f6359d6eb65c5577"
+    },
+    {
+      "kind": "create",
+      "source": "plugin.json.j2",
+      "dest": "plugin.json",
+      "strategy": "overwrite",
+      "contentHash": "sha256:e729fdf1b8148a0a358b4913186de3d8a3ef83d2d2017b7ee0bb9a4ac2c0d19b"
+    },
+    {
+      "kind": "create",
+      "source": "prompts/plan-review-acceptance.md.j2",
+      "dest": "prompts/plan-review-acceptance.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:e349dcc8b4cc517c90847794608ee886c457d3da1cad03998c9c21a6d6808cb8"
+    },
+    {
+      "kind": "create",
+      "source": "prompts/plan-review-design.md.j2",
+      "dest": "prompts/plan-review-design.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:efc3242e3fdf7a688624141130a17ea3dbd2548edd39ad10917d173747410293"
+    },
+    {
+      "kind": "create",
+      "source": "prompts/plan-review-strategic.md.j2",
+      "dest": "prompts/plan-review-strategic.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:ed16300c4f1e8ab28ab7385fdeed7324227ad142eb56baf5ebb0306a21f0e109"
+    },
+    {
+      "kind": "create",
+      "source": "prompts/plan-review-ux.md.j2",
+      "dest": "prompts/plan-review-ux.md",
+      "strategy": "overwrite",
+      "contentHash": "sha256:1bba677107cb9ee2319f6dde9c5577d7f44eda569d82ea3ecee497e7c387d773"
+    }
+  ]
+}

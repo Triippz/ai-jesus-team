@@ -1,0 +1,3 @@
+name: grafana-engineer
+description: "Grafana, Prometheus, Loki, and OpenTelemetry observability specialist"
+allow_implicit_invocation: false

@@ -1,0 +1,655 @@
+{
+  "$schema": "./tools-schema.json",
+  "version": "1.0.0",
+  "description": "AI development tool catalog \u2014 optional tools installable via tools.sh",
+  "categories": {
+    "mcp-servers": "MCP servers for Claude Code and Claude Desktop",
+    "cli-tools": "Command-line development tools",
+    "ai-assistants": "AI coding assistants and agents",
+    "code-quality": "Linters, formatters, and code quality tools",
+    "search-research": "Search, documentation, and research tools"
+  },
+  "tools": [
+    {
+      "id": "context7",
+      "name": "Context7 MCP Server",
+      "description": "Retrieves up-to-date documentation and code examples for any library",
+      "category": "mcp-servers",
+      "tags": [
+        "docs",
+        "libraries",
+        "documentation"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@upstash/context7-mcp"
+          ]
+        }
+      },
+      "homepage": "https://context7.com"
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity MCP Server",
+      "description": "Web-grounded search, research, and reasoning with citations",
+      "category": "mcp-servers",
+      "tags": [
+        "search",
+        "research",
+        "web"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "perplexity-mcp"
+          ]
+        },
+        "env": {
+          "PERPLEXITY_API_KEY": {
+            "description": "Perplexity API key from https://www.perplexity.ai/settings/api",
+            "required": true,
+            "prompt": true
+          }
+        }
+      },
+      "homepage": "https://www.perplexity.ai"
+    },
+    {
+      "id": "firecrawl",
+      "name": "Firecrawl MCP Server",
+      "description": "Web scraping, crawling, and content extraction",
+      "category": "mcp-servers",
+      "tags": [
+        "scraping",
+        "web",
+        "crawling"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "firecrawl-mcp"
+          ]
+        },
+        "env": {
+          "FIRECRAWL_API_KEY": {
+            "description": "Firecrawl API key from https://firecrawl.dev",
+            "required": true,
+            "prompt": true
+          }
+        }
+      },
+      "homepage": "https://firecrawl.dev"
+    },
+    {
+      "id": "puppeteer",
+      "name": "Puppeteer MCP Server",
+      "description": "Browser automation \u2014 navigate, click, fill forms, take screenshots",
+      "category": "mcp-servers",
+      "tags": [
+        "browser",
+        "automation",
+        "testing"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@modelcontextprotocol/server-puppeteer"
+          ]
+        }
+      },
+      "homepage": "https://pptr.dev"
+    },
+    {
+      "id": "notion",
+      "name": "Notion MCP Server",
+      "description": "Read, create, and update Notion pages, databases, and comments",
+      "category": "mcp-servers",
+      "tags": [
+        "notion",
+        "docs",
+        "project-management"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@notionhq/notion-mcp-server"
+          ]
+        },
+        "env": {
+          "NOTION_API_KEY": {
+            "description": "Notion integration token from https://www.notion.so/my-integrations",
+            "required": true,
+            "prompt": true
+          }
+        }
+      },
+      "homepage": "https://www.notion.so"
+    },
+    {
+      "id": "slack",
+      "name": "Slack MCP Server",
+      "description": "Send messages, search channels, and interact with Slack workspaces",
+      "category": "mcp-servers",
+      "tags": [
+        "slack",
+        "messaging",
+        "communication"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "slack-mcp-server"
+          ]
+        },
+        "env": {
+          "SLACK_BOT_TOKEN": {
+            "description": "Slack Bot token (xoxb-...) from https://api.slack.com/apps",
+            "required": true,
+            "prompt": true
+          }
+        }
+      },
+      "homepage": "https://api.slack.com"
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry MCP Server",
+      "description": "Query Sentry issues, events, and error tracking data",
+      "category": "mcp-servers",
+      "tags": [
+        "sentry",
+        "errors",
+        "monitoring"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@sentry/mcp-server"
+          ]
+        },
+        "env": {
+          "SENTRY_AUTH_TOKEN": {
+            "description": "Sentry auth token from https://sentry.io/settings/auth-tokens/",
+            "required": true,
+            "prompt": true
+          }
+        }
+      },
+      "homepage": "https://sentry.io"
+    },
+    {
+      "id": "sequential-thinking",
+      "name": "Sequential Thinking MCP Server",
+      "description": "Step-by-step reasoning and problem decomposition",
+      "category": "mcp-servers",
+      "tags": [
+        "reasoning",
+        "thinking",
+        "analysis"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@modelcontextprotocol/server-sequential-thinking"
+          ]
+        }
+      }
+    },
+    {
+      "id": "serena",
+      "name": "Serena MCP Server",
+      "description": "Semantic code analysis \u2014 symbol navigation, references, editing",
+      "category": "mcp-servers",
+      "tags": [
+        "code",
+        "semantic",
+        "analysis",
+        "lsp"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "uvx",
+          "args": [
+            "--from",
+            "git+https://github.com/oraios/serena",
+            "serena",
+            "start-mcp-server",
+            "--context",
+            "ide-assistant"
+          ]
+        }
+      },
+      "homepage": "https://github.com/codewithserena/serena",
+      "requires": [
+        "uv"
+      ]
+    },
+    {
+      "id": "mermaid-chart",
+      "name": "Mermaid Chart MCP Server",
+      "description": "Create, validate, and render Mermaid diagrams",
+      "category": "mcp-servers",
+      "tags": [
+        "diagrams",
+        "mermaid",
+        "visualization"
+      ],
+      "install": {
+        "type": "mcp",
+        "scope": "global",
+        "config": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "mermaid-mcp-server"
+          ]
+        }
+      },
+      "homepage": "https://www.mermaidchart.com"
+    },
+    {
+      "id": "jq",
+      "name": "jq",
+      "description": "Lightweight command-line JSON processor",
+      "category": "cli-tools",
+      "tags": [
+        "json",
+        "parsing"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install jq",
+        "linux": "sudo apt-get install -y jq",
+        "windows": "winget install jqlang.jq",
+        "check": "jq --version"
+      },
+      "homepage": "https://jqlang.github.io/jq/"
+    },
+    {
+      "id": "ripgrep",
+      "name": "ripgrep (rg)",
+      "description": "Blazing fast recursive search \u2014 used by many AI tools internally",
+      "category": "cli-tools",
+      "tags": [
+        "search",
+        "grep",
+        "fast"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install ripgrep",
+        "linux": "sudo apt-get install -y ripgrep",
+        "windows": "winget install BurntSushi.ripgrep.MSVC",
+        "check": "rg --version"
+      },
+      "homepage": "https://github.com/BurntSushi/ripgrep"
+    },
+    {
+      "id": "gh",
+      "name": "GitHub CLI",
+      "description": "GitHub from the command line \u2014 PRs, issues, actions, repos",
+      "category": "cli-tools",
+      "tags": [
+        "github",
+        "git",
+        "pr"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install gh",
+        "linux": "sudo apt-get install -y gh",
+        "windows": "winget install GitHub.cli",
+        "check": "gh --version"
+      },
+      "homepage": "https://cli.github.com"
+    },
+    {
+      "id": "glab",
+      "name": "GitLab CLI",
+      "description": "GitLab from the command line \u2014 MRs, issues, pipelines",
+      "category": "cli-tools",
+      "tags": [
+        "gitlab",
+        "git",
+        "mr"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install glab",
+        "linux": "brew install glab",
+        "windows": "winget install GLab.GLab",
+        "check": "glab --version"
+      },
+      "homepage": "https://gitlab.com/gitlab-org/cli"
+    },
+    {
+      "id": "uv",
+      "name": "uv",
+      "description": "Ultra-fast Python package manager and project tool (required for some MCP servers)",
+      "category": "cli-tools",
+      "tags": [
+        "python",
+        "package-manager"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install uv",
+        "linux": "curl -LsSf https://astral.sh/uv/install.sh | sh",
+        "windows": "irm https://astral.sh/uv/install.ps1 | iex",
+        "check": "uv --version"
+      },
+      "homepage": "https://docs.astral.sh/uv/"
+    },
+    {
+      "id": "delta",
+      "name": "delta",
+      "description": "Beautiful diff viewer with syntax highlighting for git",
+      "category": "cli-tools",
+      "tags": [
+        "git",
+        "diff",
+        "syntax-highlighting"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install git-delta",
+        "linux": "sudo apt-get install -y git-delta",
+        "windows": "winget install dandavison.delta",
+        "check": "delta --version"
+      },
+      "homepage": "https://github.com/dandavison/delta"
+    },
+    {
+      "id": "fzf",
+      "name": "fzf",
+      "description": "Fuzzy finder for files, commands, and history",
+      "category": "cli-tools",
+      "tags": [
+        "search",
+        "fuzzy",
+        "productivity"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install fzf",
+        "linux": "sudo apt-get install -y fzf",
+        "windows": "winget install junegunn.fzf",
+        "check": "fzf --version"
+      },
+      "homepage": "https://github.com/junegunn/fzf"
+    },
+    {
+      "id": "taskmaster",
+      "name": "Task Master AI",
+      "description": "AI-powered task management \u2014 break down PRDs into tasks with dependencies",
+      "category": "ai-assistants",
+      "tags": [
+        "tasks",
+        "planning",
+        "project-management"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "npm i -g task-master-ai",
+        "linux": "npm i -g task-master-ai",
+        "windows": "npm i -g task-master-ai",
+        "check": "task-master --version"
+      },
+      "homepage": "https://github.com/eyaltoledano/claude-task-master"
+    },
+    {
+      "id": "beads",
+      "name": "Beads",
+      "description": "Distributed graph-based task tracker and persistent memory for AI coding agents \u2014 built on Dolt (version-controlled SQL)",
+      "category": "ai-assistants",
+      "tags": [
+        "memory",
+        "tasks",
+        "graph",
+        "database",
+        "agents",
+        "dolt"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install beads",
+        "linux": "npm i -g @beads/bd",
+        "windows": "npm i -g @beads/bd",
+        "check": "bd --version"
+      },
+      "homepage": "https://github.com/steveyegge/beads"
+    },
+    {
+      "id": "ruff",
+      "name": "Ruff",
+      "description": "Ultra-fast Python linter and formatter (used by aok-be)",
+      "category": "code-quality",
+      "tags": [
+        "python",
+        "linter",
+        "formatter"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install ruff",
+        "linux": "pip install ruff",
+        "windows": "pip install ruff",
+        "check": "ruff --version"
+      },
+      "homepage": "https://docs.astral.sh/ruff/",
+      "profiles": [
+        "python-project"
+      ]
+    },
+    {
+      "id": "dart",
+      "name": "Dart SDK",
+      "description": "Dart language SDK (included with Flutter, listed for standalone use)",
+      "category": "code-quality",
+      "tags": [
+        "dart",
+        "flutter",
+        "sdk"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install dart",
+        "linux": "sudo apt-get install -y dart",
+        "windows": "winget install Dart.Dart-SDK",
+        "check": "dart --version"
+      },
+      "homepage": "https://dart.dev",
+      "profiles": [
+        "flutter-project"
+      ]
+    },
+    {
+      "id": "flutter",
+      "name": "Flutter SDK",
+      "description": "Flutter framework for cross-platform mobile/web/desktop development",
+      "category": "code-quality",
+      "tags": [
+        "flutter",
+        "mobile",
+        "cross-platform"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install flutter",
+        "linux": "snap install flutter --classic",
+        "windows": "winget install Google.Flutter",
+        "check": "flutter --version"
+      },
+      "homepage": "https://flutter.dev",
+      "profiles": [
+        "flutter-project"
+      ]
+    },
+    {
+      "id": "rustup",
+      "name": "Rust (via rustup)",
+      "description": "Rust toolchain manager \u2014 compiler, cargo, clippy, rustfmt",
+      "category": "code-quality",
+      "tags": [
+        "rust",
+        "compiler",
+        "toolchain"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
+        "linux": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
+        "windows": "winget install Rustlang.Rustup",
+        "check": "rustc --version"
+      },
+      "homepage": "https://rustup.rs",
+      "profiles": [
+        "rust-project"
+      ]
+    },
+    {
+      "id": "terraform",
+      "name": "Terraform",
+      "description": "Infrastructure as Code tool for cloud provisioning",
+      "category": "code-quality",
+      "tags": [
+        "terraform",
+        "iac",
+        "cloud"
+      ],
+      "install": {
+        "type": "cli",
+        "macos": "brew install terraform",
+        "linux": "brew install terraform",
+        "windows": "winget install Hashicorp.Terraform",
+        "check": "terraform --version"
+      },
+      "homepage": "https://www.terraform.io",
+      "profiles": [
+        "atlas-infra"
+      ]
+    }
+  ],
+  "bundles": {
+    "mcp-essentials": {
+      "description": "Core MCP servers for AI-assisted development",
+      "tools": [
+        "context7",
+        "sequential-thinking",
+        "puppeteer"
+      ]
+    },
+    "mcp-research": {
+      "description": "MCP servers for web search and documentation",
+      "tools": [
+        "context7",
+        "perplexity",
+        "firecrawl"
+      ]
+    },
+    "mcp-productivity": {
+      "description": "MCP servers for team tools",
+      "tools": [
+        "notion",
+        "slack",
+        "sentry",
+        "mermaid-chart"
+      ]
+    },
+    "mcp-all": {
+      "description": "All available MCP servers",
+      "tools": [
+        "context7",
+        "perplexity",
+        "firecrawl",
+        "puppeteer",
+        "notion",
+        "slack",
+        "sentry",
+        "sequential-thinking",
+        "serena",
+        "mermaid-chart"
+      ]
+    },
+    "agent-tools": {
+      "description": "AI agent memory and task management",
+      "tools": [
+        "beads",
+        "taskmaster"
+      ]
+    },
+    "cli-essentials": {
+      "description": "Essential CLI tools for development",
+      "tools": [
+        "jq",
+        "ripgrep",
+        "gh",
+        "glab",
+        "fzf",
+        "delta",
+        "uv"
+      ]
+    },
+    "flutter-tools": {
+      "description": "Tools for Flutter development",
+      "tools": [
+        "flutter",
+        "dart"
+      ]
+    },
+    "python-tools": {
+      "description": "Tools for Python development",
+      "tools": [
+        "ruff",
+        "uv"
+      ]
+    },
+    "rust-tools": {
+      "description": "Tools for Rust development",
+      "tools": [
+        "rustup"
+      ]
+    },
+    "iac-tools": {
+      "description": "Tools for infrastructure-as-code",
+      "tools": [
+        "terraform"
+      ]
+    }
+  }
+}

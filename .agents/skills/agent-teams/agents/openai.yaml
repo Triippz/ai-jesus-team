@@ -1,0 +1,3 @@
+name: agent-teams
+description: "Coordinate multi-agent work on large features with file ownership"
+allow_implicit_invocation: false

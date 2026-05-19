@@ -1,0 +1,3 @@
+name: plan-to-jira
+description: "Convert an implementation plan from docs/plans/ into JIRA issues with a parent Story/Epic and subtasks per plan step"
+allow_implicit_invocation: false

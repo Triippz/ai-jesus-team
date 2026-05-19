@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dev AI Utilities Profile",
+  "type": "object",
+  "required": ["name", "description", "plugins", "cursor_rules"],
+  "properties": {
+    "name": { "type": "string", "description": "Profile identifier" },
+    "description": { "type": "string", "description": "Human-readable profile description" },
+    "plugins": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Plugin names to install (always includes core-superpowers)"
+    },
+    "cursor_rules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Cursor rule directories to sync (from cursor-rules/)"
+    },
+    "target_repo": {
+      "type": "string",
+      "description": "Optional. If omitted, --target flag or interactive prompt is required."
+    }
+  }
+}
