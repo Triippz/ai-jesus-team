@@ -22,6 +22,8 @@ Slash command definitions for the core-superpowers plugin. Commands are thin wra
 | /resolve-reviews | resolve-reviews.md | core-superpowers:resolve-reviews |
 | /plan-to-jira | plan-to-jira.md | core-superpowers:plan-to-jira |
 | /update-jira | update-jira.md | core-superpowers:update-jira |
+| /plan-to-github | plan-to-github.md | core-superpowers:plan-to-github |
+| /update-github | update-github.md | core-superpowers:update-github |
 | /spec | spec.md | core-superpowers:spec-driven-development |
 
 ## File Format

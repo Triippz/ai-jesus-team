@@ -16,15 +16,22 @@ Prepare a branch for merge or pull request. Verify, update docs, and present opt
 - If verification fails: **STOP** — fix issues before finishing
 - Do not proceed until all checks pass
 
-### 1b. Transition JIRA Issues to Review (if linked)
+### 1b. Update Linked Issues (if linked)
 
-- Scan `docs/plans/` for `.jira-map.json` files associated with the current branch
-- If found, for each linked issue:
+- Scan `docs/plans/` for `.github-map.json` or `.jira-map.json` files associated with the current branch
+
+**GitHub (if `.github-map.json` found):**
+- For each linked issue, add a comment: `gh issue comment <number> --body "Implementation complete. Branch ready for review."`
+- For the parent issue, add a comment noting all child steps are complete
+
+**JIRA (if `.jira-map.json` found):**
+- For each linked issue:
   - Call `getTransitionsForJiraIssue` to find a transition whose name contains "Review" (e.g., "In Review", "Code Review", "Ready for Review") — case-insensitive fuzzy match
   - Call `transitionJiraIssue` to transition the issue
   - If no review transition exists, call `addCommentToJiraIssue` noting work is complete
 - For the parent issue: transition to review if all subtasks are done
-- If no JIRA linkage exists, skip silently — this is optional
+
+- If no issue linkage exists, skip silently — this is optional
 
 ### 2. Check for Stale Documentation
 Scan for docs that may need updating based on the changes in this branch:

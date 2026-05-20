@@ -26,6 +26,8 @@ Before responding to ANY user request, check if a relevant skill exists. If it d
 | Resolve Reviews | `/resolve-reviews` | Addressing MR review comments with research-backed triage and replies | Rigid |
 | Plan to JIRA | `/plan-to-jira` | After writing a plan, to create linked JIRA issues with subtasks | Rigid |
 | Update JIRA | `/update-jira` | After completing work, to update JIRA with implementation details and QA steps | Rigid |
+| Plan to GitHub | `/plan-to-github` | After writing a plan, to create linked GitHub Issues with parent + child issues | Rigid |
+| Update GitHub | `/update-github` | After completing work, to update GitHub Issues with implementation details and QA steps | Rigid |
 | Git Worktrees | — | Creating isolated worktrees for feature work | Rigid |
 | Dispatching Agents | — | Running multiple independent tasks in parallel | Flexible |
 | Agent Teams | — | Coordinating multi-agent work on large features | Flexible |

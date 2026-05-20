@@ -16,20 +16,25 @@ Execute implementation plans methodically, one step at a time, with strict TDD e
 - If no plan exists, STOP and direct the user to `/write-plan` first
 - Confirm the plan with the user before starting execution
 
-### 1b. Check for JIRA Linkage (Optional)
+### 1b. Check for Issue Tracker Linkage (Optional)
 
-- Look for a `.jira-map.json` file matching the loaded plan (same base name in `docs/plans/`)
-- If found, load the step-to-issue mapping and the `cloudId`
-- JIRA integration is optional — if no map file exists, skip all JIRA operations silently
+- Look for a `.github-map.json` or `.jira-map.json` file matching the loaded plan (same base name in `docs/plans/`)
+- If a GitHub map is found, load the step-to-issue mapping and the repo name; use `gh` CLI for updates
+- If a JIRA map is found, load the step-to-issue mapping and the `cloudId`; use Atlassian MCP for updates
+- Issue tracker integration is optional — if no map file exists, skip all issue operations silently
 
 ### 2. For Each Step
 
-#### a0. Transition JIRA to In Progress (if linked)
+#### a0. Update Issue Status (if linked)
 
-If this step has a linked JIRA issue key in the map file:
+**GitHub:** If this step has a linked GitHub issue number in the map file:
+- Add a comment: `gh issue comment <number> --body "Starting work on this step."`
+- If the comment fails, log a warning and continue — **never block execution for issue tracking**
+
+**JIRA:** If this step has a linked JIRA issue key in the map file:
 - Call `getTransitionsForJiraIssue` with the issue key to find a transition whose name contains "In Progress" (case-insensitive fuzzy match)
 - Call `transitionJiraIssue` to move the issue
-- If the transition fails (already in progress, transition not available, MCP not connected), log a warning and continue — **never block execution for JIRA**
+- If the transition fails, log a warning and continue — **never block execution for issue tracking**
 
 #### a. Check Tests Exist
 - Do tests for this step already exist?
@@ -57,6 +62,7 @@ If this step has a linked JIRA issue key in the map file:
 - Check for regressions
 - Report: "Step N/M complete. All tests passing. Moving to step N+1."
 - If a step fails, stop and debug before continuing
+- **GitHub (if linked):** Run `gh issue comment <number> --body "Step N/M complete. All tests passing."`
 - **JIRA (if linked):** Call `addCommentToJiraIssue` with a brief status: "Step N/M complete. All tests passing."
 
 ### 4. After All Steps

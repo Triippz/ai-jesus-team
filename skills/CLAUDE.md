@@ -26,6 +26,8 @@ Shared skill definitions for the core-superpowers plugin. Skills are the primary
 | resolve-reviews | resolve-reviews/ | Rigid | Research-backed triage of MR review comments, implement fixes, reply to all threads |
 | plan-to-jira | plan-to-jira/ | Rigid | Convert implementation plans into JIRA issues with parent Story + subtasks |
 | update-jira | update-jira/ | Rigid | Update JIRA issues with implementation details and QA test steps |
+| plan-to-github | plan-to-github/ | Rigid | Convert implementation plans into GitHub Issues with parent + child issues |
+| update-github | update-github/ | Rigid | Update GitHub Issues with implementation details and QA test steps |
 | spec-driven-development | spec-driven-development/ | Rigid | Multi-phase spec/PRD authoring with adversarial review and deterministic validation; the /spec command |
 | writing-skills | writing-skills/ | Meta | TDD-based skill authoring (skill for writing skills) |
 
