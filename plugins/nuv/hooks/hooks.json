@@ -1,0 +1,63 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/session-start.js session-start",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/block-main-branch.js block-main-branch"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/commit-msg-check.js commit-msg-check"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/session-start.js session-start"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
+          }
+        ]
+      }
+    ]
+  }
+}

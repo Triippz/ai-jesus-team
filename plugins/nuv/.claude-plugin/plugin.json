@@ -1,0 +1,8 @@
+{
+  "name": "nuv-superpowers",
+  "description": "NUVCard SaaS development: Deno, Hono, HTMX, TypeScript \u2014 review agents, safety hooks, and plan review prompts",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mark Tripoli"
+  }
+}
