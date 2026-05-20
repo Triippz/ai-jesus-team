@@ -13,7 +13,7 @@ Team agents are the workflow backbone. They are generated once per plugin and co
 | Field | Value |
 |---|---|
 | Template | `templates/agents/team/orchestrator.md.j2` |
-| Model | `claude-sonnet-4-5` |
+| Model | `claude-sonnet-4-6` |
 | Role | Central workflow dispatcher and phase gatekeeper |
 
 The orchestrator is the single entry point for all project work. It enforces the seven-step workflow order (brainstorm → plan → tdd → execute → review → verify → finish), reads changed files before making routing decisions, and gates progress between phases with mandatory human approval checkpoints.
@@ -70,7 +70,7 @@ Measures structural complexity against per-language thresholds. Uses profile-def
 | Field | Value |
 |---|---|
 | Template | `templates/agents/review/concurrency-review.md.j2` |
-| Model | `claude-sonnet-4-5` |
+| Model | `claude-sonnet-4-6` |
 | Checks | Race conditions, deadlocks, thread safety, async correctness, resource lifecycle, cancellation propagation |
 
 Reviews all async, concurrent, and parallel code patterns. Applies high scrutiny — flags ambiguous patterns at `confidence: medium` rather than silently passing.
@@ -93,7 +93,7 @@ Reviews all async, concurrent, and parallel code patterns. Applies high scrutiny
 | Field | Value |
 |---|---|
 | Template | `templates/agents/review/doc-review.md.j2` |
-| Model | `claude-sonnet-4-5` |
+| Model | `claude-sonnet-4-6` |
 | Checks | README accuracy, inline doc comment accuracy, CHANGELOG entries, misleading comments, public API documentation completeness |
 
 Verifies that written documentation reflects the code as it actually exists. A doc comment block in any changed source file counts as documentation.
@@ -116,7 +116,7 @@ Verifies that written documentation reflects the code as it actually exists. A d
 | Field | Value |
 |---|---|
 | Template | `templates/agents/review/domain-review.md.j2` |
-| Model | `claude-opus-4-5` |
+| Model | `claude-opus-4-7` |
 | Checks | Anemic domain models, boundary violations, DDD pattern health (aggregates, value objects, domain events, repositories), cross-context coupling |
 
 Requires deep semantic understanding of business concepts. Only evaluates files containing domain or business logic — skips infrastructure, configuration, migration, and test files.
@@ -207,7 +207,7 @@ Requires deep semantic understanding of business concepts. Only evaluates files 
 | Field | Value |
 |---|---|
 | Template | `templates/agents/review/spec-compliance-review.md.j2` |
-| Model | `claude-sonnet-4-5` |
+| Model | `claude-sonnet-4-6` |
 | Checks | Functional requirement coverage, acceptance scenario coverage, scope creep detection, requirement-to-file traceability |
 
 **This agent is always the first gate.** If it returns `fail`, the orchestrator halts the review chain before running any other agent.
@@ -225,7 +225,7 @@ Parses `spec.md` at the repo root for labeled requirements (`FR-NNN`, `REQ-NNN`,
 | Field | Value |
 |---|---|
 | Template | `templates/agents/review/structure-review.md.j2` |
-| Model | `claude-sonnet-4-5` |
+| Model | `claude-sonnet-4-6` |
 | Checks | Separation of concerns, test mirroring, single responsibility per module, dead directories |
 
 **Universal checks (all stacks):** Cross-layer leakage (raw SQL in view handler, HTTP response construction in model), test file mirroring, modules mixing unrelated concerns, empty directories.
@@ -248,7 +248,7 @@ Parses `spec.md` at the repo root for labeled requirements (`FR-NNN`, `REQ-NNN`,
 | Field | Value |
 |---|---|
 | Template | `templates/agents/review/test-review.md.j2` |
-| Model | `claude-sonnet-4-5` |
+| Model | `claude-sonnet-4-6` |
 | Checks | Farley Score (8 weighted properties from Dave Farley's _Modern Software Engineering_) |
 
 Evaluates each test function against 8 properties, computes a weighted score per test and per file, and reports issues by Farley Score band.
@@ -357,8 +357,8 @@ Challenges: error state recovery paths (every failure must have a described user
 | Tier | Model | Agents | Rationale |
 |---|---|---|---|
 | Haiku | `claude-haiku-4-5` | complexity-review, naming-review, performance-review, progress-guardian, plan-review-acceptance, plan-review-design, plan-review-strategic, plan-review-ux | Structural and mechanical checks; fast and cheap; patterns are deterministic |
-| Sonnet | `claude-sonnet-4-5` | concurrency-review, doc-review, spec-compliance-review, structure-review, test-review, orchestrator | Quality and spec gates requiring reasoning about intent and context |
-| Opus | `claude-opus-4-5` | domain-review | Deep semantic reasoning about business domain; bounded context analysis requires understanding organizational intent |
+| Sonnet | `claude-sonnet-4-6` | concurrency-review, doc-review, spec-compliance-review, structure-review, test-review, orchestrator | Quality and spec gates requiring reasoning about intent and context |
+| Opus | `claude-opus-4-7` | domain-review | Deep semantic reasoning about business domain; bounded context analysis requires understanding organizational intent |
 
 The orchestrator can override the default tier only when the diff involves business-critical logic and the user explicitly requests a deeper pass. Tier does not affect health score weight — a warn from Haiku carries the same weight as a warn from Opus.
 

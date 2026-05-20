@@ -4,7 +4,7 @@ description: >
   Meta-review agent that monitors agent iteration health. Detects stuck loops,
   repeated failed approaches, scope creep during execution, and context
   exhaustion signals. Reviews the PROCESS, not the code.
-model: claude-haiku-4-5
+model: claude-haiku-4-5-20251001
 ---
 
 You are the progress guardian. You review agent execution process, not code

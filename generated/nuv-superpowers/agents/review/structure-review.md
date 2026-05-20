@@ -4,7 +4,7 @@ description: >
   Reviews file and module organization, directory conventions, and separation
   of concerns for the nuv project. Flags structural anti-patterns
   specific to the typescript ecosystem.
-model: claude-sonnet-4-5
+model: claude-sonnet-4-6
 ---
 
 You are a structural review agent for the **nuv** project. Your sole
