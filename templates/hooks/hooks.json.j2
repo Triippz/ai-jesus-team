@@ -16,7 +16,7 @@
       {
         "matcher": "Bash",
         "hooks": [
-{% if profile.tier in ["standard", "strict"] %}
+{% if profile.hook_profile in ["standard", "strict"] %}
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/block-main-branch.js block-main-branch"
@@ -26,11 +26,7 @@
             "command": "${PLUGIN_ROOT}/hooks/commit-msg-check.js commit-msg-check"
           },
 {% endif %}
-{% if profile.tier == "strict" %}
-          {
-            "type": "command",
-            "command": "${PLUGIN_ROOT}/hooks/tdd-guard.js tdd-guard"
-          },
+{% if profile.hook_profile == "strict" %}
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/gateguard.js gateguard"
@@ -48,12 +44,11 @@
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
-          }{% if profile.tier in ["standard", "strict"] %},
+          }{% if profile.hook_profile in ["standard", "strict"] %},
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
           }{% endif %}
-
         ]
       }
     ],
@@ -61,7 +56,7 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
-{% if profile.tier in ["standard", "strict"] %}
+{% if profile.hook_profile in ["standard", "strict"] %}
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"

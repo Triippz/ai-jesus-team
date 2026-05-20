@@ -1,6 +1,6 @@
 {
   "schema": "install-state.v1",
-  "generatedAt": "2026-05-19T15:13:47.892Z",
+  "generatedAt": "2026-05-20T01:57:07.424Z",
   "templateVersion": "2.0.0",
   "profileHash": "sha256:61392fa05dd239154df2f14cab3bb262d68b48f6d55dbb0945003ffffa402e8a",
   "operations": [
@@ -16,77 +16,77 @@
       "source": "agents/review/complexity-review.md.j2",
       "dest": "agents/review/complexity-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:7bee20d05885476a41477d045cfe1217707e0057d79974c2cd120cc3063adbb4"
+      "contentHash": "sha256:220f09bf1350d1260b5900fde19fb85c21287d19de57d9ece3aaffae42c84d65"
     },
     {
       "kind": "create",
       "source": "agents/review/concurrency-review.md.j2",
       "dest": "agents/review/concurrency-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:d79c001ace43fe92125b0b34ec9960c075ff27b78313ec1215a289b3e4a4fff4"
+      "contentHash": "sha256:35b9ce207f8ead651033807df1f360120c83935a79f7f32ad903fe640ce663c6"
     },
     {
       "kind": "create",
       "source": "agents/review/doc-review.md.j2",
       "dest": "agents/review/doc-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:dd21f64b64452b0498bc5711b741e51ffda86c3554791b77b8e30636fd399ed6"
+      "contentHash": "sha256:861f511cd64ad0ba7e2c6cb92020401602281a00a38be592a9172efc344720e2"
     },
     {
       "kind": "create",
       "source": "agents/review/domain-review.md.j2",
       "dest": "agents/review/domain-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:f6d96ed005b8556afd4a8489808b74273959160daab7755ae454e2bc844b226f"
+      "contentHash": "sha256:8532ced24c8c53d9e223b982c015ae9fd4da2b0bdd6dbddcd26f1167a60f86e7"
     },
     {
       "kind": "create",
       "source": "agents/review/naming-review.md.j2",
       "dest": "agents/review/naming-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:b7c2e7db7053c0912fc893c18f8661d19c3900ca5c1d0ceccb70103889ff0327"
+      "contentHash": "sha256:7bb88cf50be423b9ef00ac880692455521a2f3c6570899a062d1fc867347eef6"
     },
     {
       "kind": "create",
       "source": "agents/review/performance-review.md.j2",
       "dest": "agents/review/performance-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:da940bee0b55117517f1d50f7744ee8c78034770e3ded0209a7fa932e6b18952"
+      "contentHash": "sha256:020af89258eeace4a557fb5c275e7845de67914b44c7a6140065327b342e9dc3"
     },
     {
       "kind": "create",
       "source": "agents/review/progress-guardian.md.j2",
       "dest": "agents/review/progress-guardian.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:8f48bb5794152634620c791744399fe89cda6d35a8e1c4cead0155a2fbf21831"
+      "contentHash": "sha256:8300b140f93d11563d18267702ac2880e734707966ab8142ef90cb947d866110"
     },
     {
       "kind": "create",
       "source": "agents/review/spec-compliance-review.md.j2",
       "dest": "agents/review/spec-compliance-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:e163924353422b2a0bd3984fae068f0194798b0ade86a3afc1a1c8669ad3fb0e"
+      "contentHash": "sha256:c249b78d3db38e8840dd689e4a9c5360c9dcea03ae52cf428d3fa753f83362e0"
     },
     {
       "kind": "create",
       "source": "agents/review/structure-review.md.j2",
       "dest": "agents/review/structure-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:2c0221cd5af7f2001b88f3a2a62d0bcfed6583c000c34527b01a591f011c478e"
+      "contentHash": "sha256:21813bdf4838c4cb5e77f43e2af589bdbc3d263f18ca87d5229290d0b9218e85"
     },
     {
       "kind": "create",
       "source": "agents/review/test-review.md.j2",
       "dest": "agents/review/test-review.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:ba0d903f4397b9ce2f395f8aa9c724dfdf450932ebc1c5ebf4d7a355716d4f1e"
+      "contentHash": "sha256:332478f42fb5c02b1903e68652fa7c5a36546d2d3b659ec76a0d6d73737e9cc2"
     },
     {
       "kind": "create",
       "source": "agents/team/orchestrator.md.j2",
       "dest": "agents/team/orchestrator.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:fbfe0686e313af44cc31907346ede01da4c41bd32d56590efaeb043a70bf9692"
+      "contentHash": "sha256:496498d186cbafefc97dc7385287d9ae7b504ee07e83db0edd03a079094053cc"
     },
     {
       "kind": "create",
@@ -94,6 +94,27 @@
       "dest": "CLAUDE.md",
       "strategy": "skip_if_exists",
       "contentHash": "sha256:0f9c9c5dd6ad9d03f989c4679b2294e5df6ea9f63eb3c3f764c47367c6754e7b"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/block-main-branch.js",
+      "dest": "hooks/block-main-branch.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:c50e39b857cfbddc24d1468c154bdf20c3f795ee778034ec075f96ca4f055bd9"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/commit-msg-check.js",
+      "dest": "hooks/commit-msg-check.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:a30c0a83f55a46f2fae744ce9dd43787f1721ec40db6a5208cdc22cb7c0acaeb"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/detect-secrets.js",
+      "dest": "hooks/detect-secrets.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:4c4536ae9dddce2e331c156322a58a10b5b92c2eefc50ed9a165f74320e61d88"
     },
     {
       "kind": "create",
@@ -114,7 +135,14 @@
       "source": "hooks/hooks.json.j2",
       "dest": "hooks/hooks.json",
       "strategy": "deep_merge",
-      "contentHash": "sha256:a9ef3a9c1db5b744734a0536efb4a1d546516cd2a90a8bb761f511ad66613691"
+      "contentHash": "sha256:242119b9c82f5707f9d762f41f3ba467c65bfe284b25076b6007bc1cc7e35d3d"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/protect-files.js",
+      "dest": "hooks/protect-files.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:64a0c1e80c07706a44703a65b83fd5e17e4c99274c530d55854a0cb44af380ec"
     },
     {
       "kind": "create",
@@ -122,6 +150,13 @@
       "dest": "hooks/run-with-flags.js",
       "strategy": "overwrite",
       "contentHash": "sha256:21ebd7f2b908344706ff46b45065a12d248ffb8314abf199561faa25cbddcaec"
+    },
+    {
+      "kind": "create",
+      "source": "hooks/session-start.js",
+      "dest": "hooks/session-start.js",
+      "strategy": "overwrite",
+      "contentHash": "sha256:0d1eb14dd3267e9e3884053fcacd5c69c904a82a8dc1aac7bf7908b6ce22d11c"
     },
     {
       "kind": "create",
@@ -163,28 +198,28 @@
       "source": "prompts/plan-review-acceptance.md.j2",
       "dest": "prompts/plan-review-acceptance.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:e349dcc8b4cc517c90847794608ee886c457d3da1cad03998c9c21a6d6808cb8"
+      "contentHash": "sha256:1f0bcc6e0a397728f083df366034f96bf0042a6a9944784a91cd862673dc75de"
     },
     {
       "kind": "create",
       "source": "prompts/plan-review-design.md.j2",
       "dest": "prompts/plan-review-design.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:efc3242e3fdf7a688624141130a17ea3dbd2548edd39ad10917d173747410293"
+      "contentHash": "sha256:4835dcce59f0b33cd460729a70252d7ca2e6dc485a1ccae91ee0fbc67278bdeb"
     },
     {
       "kind": "create",
       "source": "prompts/plan-review-strategic.md.j2",
       "dest": "prompts/plan-review-strategic.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:ed16300c4f1e8ab28ab7385fdeed7324227ad142eb56baf5ebb0306a21f0e109"
+      "contentHash": "sha256:59de2196b8af8979455d33fe69ec474c2efd1f66601bb8ef2d4781235b6ebdb6"
     },
     {
       "kind": "create",
       "source": "prompts/plan-review-ux.md.j2",
       "dest": "prompts/plan-review-ux.md",
       "strategy": "overwrite",
-      "contentHash": "sha256:1bba677107cb9ee2319f6dde9c5577d7f44eda569d82ea3ecee497e7c387d773"
+      "contentHash": "sha256:396a5a1451d58b5bd50ea93a17a4c1f6a025c178ac633afb0c5d0c298d67cb69"
     }
   ]
 }

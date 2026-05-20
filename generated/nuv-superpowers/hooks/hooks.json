@@ -18,6 +18,14 @@
         "hooks": [
           {
             "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/block-main-branch.js block-main-branch"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/commit-msg-check.js commit-msg-check"
+          },
+          {
+            "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/session-start.js session-start"
           }
         ]
@@ -28,6 +36,10 @@
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
           }
         ]
       }
@@ -36,6 +48,10 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/hooks/detect-secrets.js detect-secrets"
+          },
           {
             "type": "command",
             "command": "${PLUGIN_ROOT}/hooks/protect-files.js protect-files"
