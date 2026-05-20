@@ -227,6 +227,49 @@ When a plugin is installed into a project that already has a `hooks.json`, the f
 
 ---
 
+## git-level hooks (`.githooks/`)
+
+The `.githooks/` directory contains standard git hooks that enforce the same commit and secret policies as the Claude Code hooks, but at the git layer. They run for every `git commit` regardless of which tool or editor is used.
+
+### commit-msg
+
+Enforces the `type: [scope] description` commit message format.
+
+**Allowed types:** `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `build`, `ci`, `chore`
+
+**Breaking change format:** `feat!: [scope] description`
+
+**Passes through:** Merge commits (`^Merge `) and revert commits (`^Revert `) are skipped without validation.
+
+**Blocks AI attribution:** Any commit message containing `claude`, `anthropic`, `copilot`, `gpt`, `openai`, `cursor`, or `gemini` (case-insensitive) is rejected.
+
+**Note:** Use `type: [scope] description` — do NOT use `type(scope):` format. The parenthesis form breaks semantic-release.
+
+### pre-commit
+
+Scans all staged files before a commit is created.
+
+| Check | Pattern | Behavior |
+|---|---|---|
+| Secret detection | `sk-*`, `AKIA*`, `ghp_*`, `glpat-*` | Blocks commit if found in any staged file |
+| Env file protection | `.env`, `.env.*`, `*.env.local` | Blocks commit if an env file is staged |
+| JSON validation | `*.json` | Blocks commit if any staged JSON file fails to parse |
+| Debug statements | `debugger`, `console.debug` in `*.js`/`*.mjs` | Blocks commit if found |
+
+### activation
+
+```bash
+git config core.hooksPath .githooks
+```
+
+This is a per-repository setting. It tells git to look for hooks in `.githooks/` instead of the default `.git/hooks/`. Run once after cloning.
+
+### relationship to Claude Code hooks
+
+The Claude Code `commit-msg-check` and `detect-secrets` hooks enforce the same rules during Claude Code sessions. The `.githooks/` hooks provide a second enforcement layer that catches violations from any git client — terminal, IDE, GUI, or CI.
+
+---
+
 ## hook execution flow
 
 ```mermaid

@@ -28,7 +28,7 @@ Use `/spec` when 2 or more of these are true:
 
 | Condition | Examples |
 |---|---|
-| Crosses 2+ plugins | Frontend + backend; Rust SDK + Flutter app |
+| Crosses 2+ plugins | AOK frontend + AOK backend; Atlas Rust + Atlas Flutter |
 | 3+ distinct user stories or persona interactions | Multi-role feature with separate flows |
 | Touches a contract other systems depend on | Shared API, event schema, database migration |
 | Misinterpretation cost > 30 minutes to repair | Anything a junior would get wrong from a vague description |
@@ -43,8 +43,8 @@ Use `/brainstorm` → `/write-plan` when the work is exploratory, a bug fix with
 
 | Type | Definition | Examples |
 |---|---|---|
-| **Rigid** | Follow the process exactly as written. Do not skip steps, do not improvise. | tdd, executing-plans, verification, finishing-branch, git-worktrees, debugging, merge-request, resolve-reviews, plan-to-jira, update-jira, code-review |
-| **Flexible** | Adapt guidance to context. Use judgment on which parts apply. | brainstorming, dispatching-agents, agent-teams, writing-skills, spec-driven-development |
+| **Rigid** | Follow the process exactly as written. Do not skip steps, do not improvise. | tdd, executing-plans, verification, finishing-branch, git-worktrees, debugging, merge-request, resolve-reviews, plan-to-jira, update-jira, code-review, handoff |
+| **Flexible** | Adapt guidance to context. Use judgment on which parts apply. | brainstorming, dispatching-agents, agent-teams, writing-skills, spec-driven-development, interrogate, interrogate-with-docs, terse, orient, prototype, improve-codebase-architecture, async-audit |
 
 ---
 
@@ -70,6 +70,14 @@ Use `/brainstorm` → `/write-plan` when the work is exploratory, a bug fix with
 | agent-teams | — | Any | Flexible | Coordinate multi-agent work on large features requiring file ownership |
 | using-superpowers | — | Meta | — | Entry point loaded at session start; contains skill catalog, workflow, agent roster |
 | writing-skills | — | Meta | Flexible | Authoring new skills using a TDD-based process |
+| interrogate | `/interrogate` | Any | Flexible | Adversarial interview to stress-test a plan or design before implementation |
+| interrogate-with-docs | `/interrogate-with-docs` | Any | Flexible | Same as interrogate + CONTEXT.md glossary sharpening and ADR creation |
+| handoff | `/handoff` | Any | Rigid | Compact conversation into a continuation doc for the next session |
+| terse | `/terse` | Any | Flexible | Toggle ultra-compressed communication mode (~75% token reduction) |
+| orient | `/orient` | Any | Flexible | Quick codebase map — modules, callers, dependencies at a higher abstraction |
+| prototype | `/prototype` | Explore | Flexible | Throwaway code to answer a design question before committing to implementation |
+| improve-codebase-architecture | `/improve-codebase-architecture` | Refactor | Flexible | Deep vs shallow module analysis; find and execute shallow→deep refactors |
+| async-audit | `/async-audit` | Review | Flexible | Cross-stack async code review — races, deadlocks, leaks, cancellation safety (Rust/Tokio, Dart/Flutter, Python, Go, TypeScript) |
 
 ---
 
@@ -322,6 +330,106 @@ Meta-skill for authoring new skills using TDD principles.
 
 **Rules:** Rigid skills need precise, unambiguous instructions. Flexible skills need clear principles. Include examples when instructions could be misinterpreted. Test with realistic scenarios.
 
+### interrogate
+
+Stress-tests a plan or design through structured adversarial questioning before implementation begins.
+
+**Process:** Read the plan or design → Ask targeted adversarial questions (assumptions, failure modes, scale, rollback, dependencies) → Surface hidden risks and gaps → Allow author to refine → Repeat until no critical gaps remain
+
+**Key outputs:** A list of addressed and unaddressed risks; refined plan or design
+
+**Rule:** This is an interview, not a debate. The goal is to surface problems the author hasn't considered, not to block progress.
+
+---
+
+### interrogate-with-docs
+
+Same adversarial interview as `/interrogate`, extended with documentation artifacts.
+
+**Extensions over `/interrogate`:**
+- Maintains or creates a `CONTEXT.md` glossary of domain terms agreed during the interview
+- Creates Architecture Decision Records (ADRs) for non-obvious design choices surfaced during questioning
+- Cross-references claims against existing codebase code where relevant
+
+**Key outputs:** Refined plan, `CONTEXT.md` glossary updates, one or more ADR files
+
+---
+
+### handoff
+
+Compacts the current conversation into a continuation document so the next session can resume without context loss.
+
+**Process:** Summarize work completed → Document current state and blockers → List open decisions and their context → Record next steps in priority order → Write to `docs/handoffs/YYYY-MM-DD-<topic>-handoff.md`
+
+**Key output:** `docs/handoffs/YYYY-MM-DD-<topic>-handoff.md` — objective summary, completed work, current state, open decisions, next steps, file inventory
+
+**Rules:** Ruthlessly compress. Include only what a fresh agent needs to continue. No conversational filler.
+
+---
+
+### terse
+
+Reduces response verbosity by approximately 75% for token-constrained sessions or when speed matters more than explanation depth.
+
+**Mode:** When active, Claude responds with: no preamble, no summaries, direct answers, code without commentary unless asked, bullet points over prose
+
+**Activation:** `/terse` toggles the mode on or off within a session.
+
+**Rule:** Terse mode suppresses explanation, not accuracy. Correctness is never sacrificed.
+
+---
+
+### orient
+
+Produces a quick codebase orientation map at a higher level of abstraction — useful when entering an unfamiliar codebase or returning after a long gap.
+
+**Process:** Enumerate top-level modules → Identify entry points and public API surfaces → Map major caller/callee relationships → Highlight key data flows → Surface the tech stack and major dependencies → Output as a structured map, not prose
+
+**Key output:** A module map with entry points, dependency direction, and data flow summary
+
+**Rule:** Optimize for navigability, not completeness. A good orient output tells a developer where to look next, not everything about the system.
+
+---
+
+### prototype
+
+Builds throwaway code to answer a concrete design question before committing to an implementation approach.
+
+**Process:** Identify the specific design question to answer → Build the minimal code that answers it → Run or analyze the prototype → Report findings and recommendation → Discard the prototype (do not promote to production)
+
+**Rules:** Prototype code is never promoted to production. No tests are written for prototype code — it exists to be deleted. The output is a finding and a recommendation, not a feature.
+
+---
+
+### improve-codebase-architecture
+
+Finds and executes shallow→deep module refactors — moving implementation details from callers into the modules that own them.
+
+**Process:** Read changed files and surrounding modules → Identify shallow patterns (callers doing what modules should do, leaking internals, primitive obsession) → Rank by impact → Propose refactors with rationale → Execute approved refactors with tests
+
+**Key heuristic — shallow vs deep:**
+- **Shallow module**: small interface, complex implementation visible to callers; callers know too much
+- **Deep module**: small interface, all complexity hidden; callers know only what they need
+
+**Rules:** Never refactor without tests. Propose before implementing. Validate that the refactor makes callers simpler, not just different.
+
+---
+
+### async-audit
+
+Reviews async, concurrent, and parallel code for correctness across multiple language stacks.
+
+**Checks per stack:**
+- **Rust/Tokio**: `Arc<Mutex<T>>` held across `.await`, lock ordering, blocking in async context, SQLite across I/O, actor blocking
+- **Dart/Flutter**: `await` interleaving, `StreamController` lifecycle, isolate `SendPort` safety, `setState`-after-`dispose`
+- **Python**: asyncio lock usage, Celery atomicity/idempotency, Channels state, Redis pipeline races, GIL implications
+- **Go**: goroutine loop variable closure, map concurrent access, `WaitGroup.Add` placement, `context.Done` handling
+- **TypeScript**: `await` in `forEach`, `Promise.all` side-effect ordering, `Promise.race` without cancellation, event loop blocking
+
+**Output format:** Findings grouped by severity (error / warning / suggestion) with file, line, pattern name, and recommended fix.
+
+**Rule:** Flag ambiguous patterns at `confidence: medium` rather than silently passing. High-confidence pass is not the same as no issues found.
+
 ---
 
 ## Skills Directory Structure
@@ -329,6 +437,7 @@ Meta-skill for authoring new skills using TDD principles.
 ```
 skills/
 ├── agent-teams/SKILL.md
+├── async-audit/SKILL.md
 ├── brainstorming/SKILL.md
 ├── code-review/SKILL.md
 ├── debugging/SKILL.md
@@ -336,8 +445,14 @@ skills/
 ├── executing-plans/SKILL.md
 ├── finishing-branch/SKILL.md
 ├── git-worktrees/SKILL.md
+├── handoff/SKILL.md
+├── improve-codebase-architecture/SKILL.md
+├── interrogate/SKILL.md
+├── interrogate-with-docs/SKILL.md
 ├── merge-request/SKILL.md
+├── orient/SKILL.md
 ├── plan-to-jira/SKILL.md
+├── prototype/SKILL.md
 ├── resolve-reviews/SKILL.md
 ├── spec-driven-development/
 │   ├── SKILL.md
@@ -362,6 +477,7 @@ skills/
 │       ├── import-mapping.md
 │       └── change-set-template.md
 ├── tdd/SKILL.md
+├── terse/SKILL.md
 ├── update-jira/SKILL.md
 ├── using-superpowers/SKILL.md
 ├── verification/SKILL.md

@@ -11,6 +11,10 @@ Read an implementation plan from `docs/plans/`, create a parent Story (or Epic) 
 
 **Core principle:** Load plan -> Discover JIRA config -> Create parent -> Create subtasks with template -> Write map file -> Report.
 
+**Slicing principle:** Each issue is a tracer-bullet vertical slice — a narrow but complete path through all integration layers from UI to database (or equivalent). Never create horizontal slices (e.g., "implement all models" or "wire up all routes"). A vertical slice delivers end-to-end value that can be demonstrated and tested independently.
+
+**Execution classification:** Every issue is classified as AFK (Away From Keyboard — an agent can implement and merge without human interaction) or HITL (Human In The Loop — requires a human decision, design review, or manual testing step). Prefer AFK slices. Design slices to maximize AFK ratio.
+
 **Announce at start:** "I'm using the plan-to-jira skill to create JIRA issues from your implementation plan."
 
 ## Prerequisites
@@ -83,12 +87,26 @@ Record the returned issue key (e.g., `PROJ-100`).
 
 ### Step 5: Create Subtask Per Plan Step
 
+**Vertical slice rule:** Each subtask must be a tracer-bullet vertical slice — a narrow but complete end-to-end path through all integration layers. Do not create subtasks that implement only one layer (e.g., "add the database table" or "write the API handler"). Instead, each subtask should deliver a thin slice that works all the way through, from entry point to storage and back. A subtask passes this check if: (a) it can be demonstrated running, and (b) it has a clear acceptance test that exercises the full path.
+
+**AFK/HITL classification rule:** Before creating each subtask, classify it:
+- **AFK** (Away From Keyboard) — An agent can implement, test, and open a merge request without any human decision or interaction. The acceptance criteria are unambiguous, the design is settled, and no manual testing step is required.
+- **HITL** (Human In The Loop) — A human must make a decision, approve a design direction, conduct a manual test, or interact with the system at some point during or after implementation. Examples: design review required, ambiguous requirements, approval gates, user-facing flows that need manual sign-off.
+
+Prefer AFK. If a subtask is HITL, note specifically what human action is required and when.
+
 For each step in the plan, build the description using the **mandatory template**:
 
 ```markdown
 ## Description
 [Step's "What to implement" content from the plan. Focus on implementation-level details.
-Can reference the parent story, but should be self-contained enough for a developer to work from.]
+Can reference the parent story, but should be self-contained enough for a developer to work from.
+Describe the vertical slice: what end-to-end path does this issue deliver?]
+
+## Execution Classification
+**AFK / HITL:** [AFK or HITL]
+[If AFK: confirm that acceptance criteria are unambiguous and no human decision or manual test is required.]
+[If HITL: describe specifically what human action is required and at what point in implementation.]
 
 ## Checklist
 - [ ] [Specific sub-task or deliverable 1]
@@ -191,3 +209,6 @@ Next steps:
 - **Fill every section** — if information is not in the plan, write "N/A" rather than omitting the section
 - **Create issues sequentially** — one at a time, not in parallel, to respect rate limits
 - **Always write the map file** — other skills depend on it for auto-transitions and updates
+- **Vertical slices only** — every subtask must deliver a complete end-to-end path through all integration layers; reject horizontal slices (e.g., "implement all models", "wire all routes")
+- **Classify every issue AFK or HITL** — never leave classification blank; if uncertain, default to HITL and note what would make it AFK
+- **Prefer AFK** — if a subtask can be redesigned to eliminate a human gate without compromising quality, do it before creating the issue

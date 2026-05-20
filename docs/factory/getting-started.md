@@ -10,6 +10,14 @@ This guide walks a first-time user through generating a tailored Claude Code plu
 - **npm** — comes with Node.js
 - This repository cloned locally
 
+After cloning, activate the git hooks that enforce semantic commit format and prevent secrets from being committed:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+This is a one-time step per clone. See [hook-system.md](./hook-system.md#git-level-hooks-githooks) for details on what each hook enforces.
+
 ---
 
 ## 1. Install Dependencies

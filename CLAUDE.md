@@ -1,110 +1,92 @@
-# CLAUDE.md
+# ai-jesus-team — claude code instructions
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working in this repository.
 
-## Project Overview
+## project overview
 
-Universal AI development utilities repository that standardizes AI-assisted development across all projects. One installer, one workflow, one set of conventions — only domain-specific agents/hooks/rules change per project.
+Personal plugin factory and workflow toolkit for Claude Code. Generates self-contained, stack-tailored plugins from project profiles. Contains the template factory system, core workflow skills, specialist review agents, and safety hooks.
 
-## Common Commands
+## common commands
 
 ```bash
-# Test the installer
-./install.sh --list                          # Show all profiles
-./install.sh --profile nuv --dry-run         # Preview without changes
-./install.sh --profile nuv --skip-tools      # Config only (skip npm/brew)
+# factory
+node scripts/generate.js --profile profiles/nuv.json
+node scripts/generate.js --profile profiles/nuv.json --update
+node scripts/install-plugin.js --plugin generated/nuv-superpowers --target <path>
+node scripts/doctor.js --target <path>
+node scripts/repair.js --target <path> --source generated/nuv-superpowers
+node scripts/validate-schemas.js
 
-# Test hooks individually (pipe JSON to stdin)
+# tests
+npm test                                     # all Node.js tests (184)
+make test                                    # all bats tests (hooks + installer)
+node --test tests/factory/generate.test.js   # specific test file
+
+# hooks (pipe JSON to stdin)
 echo '{"tool_input":{"command":"git push"}}' | hooks/block-main-branch-commit-push.sh
 echo '{"tool_input":{"file_path":".env"}}' | hooks/protect-files.sh
-# Exit 0 = allow, exit 2 = block
-
-# Validate all JSON configs
-find . -name "*.json" -not -path "./.claude/*" -exec python3 -m json.tool {} \; > /dev/null
-
-# Sync cursor rules to a target repo
-scripts/sync-cursor-rules.sh ~/Development/nuv shared
-
-# Run tests (bats-core, vendored via git submodules)
-make install-test-deps                       # First time: init submodules
-make test                                    # Run all 159 tests
-make test-hooks                              # Core + plugin hook tests only
-make test-install                            # install.sh tests only
-make test-sync                               # sync-cursor-rules.sh tests only
-make test-json                               # JSON validation only
 ```
 
-## Architecture
+## commit message format
 
-This repo is structured as a **Claude Code plugin marketplace** with a layered architecture:
+Required format: `type: [scope] description`
 
-### Core Plugin (repo root)
-The root directory IS the `core-superpowers` plugin. It contains project-agnostic workflow tools:
-- `agents/` — 10 shared agents (orchestrator, arch-reviewer, code-reviewer, security-auditor, test-automator, debugger, design-patterns, spec-challenger, spec-validator, grafana-engineer)
-- `skills/` — 18 shared skills, each in its own `<name>/SKILL.md` directory
-- `commands/` — 13 slash commands (`/brainstorm`, `/spec`, `/write-plan`, `/tdd`, `/execute-plan`, `/debug`, `/review`, `/verify`, `/finish`, `/mr`, `/resolve-reviews`, `/plan-to-jira`, `/update-jira`)
-- `hooks/` — 12 safety hook scripts + `hooks.json` configuration
+Do not use: `type(scope): description`
 
-### Domain Plugins (`plugins/`)
-Each subdirectory is an independent Claude Code plugin with its own `.claude-plugin/plugin.json`, agents, hooks, and optionally skills/commands. Plugins are added per project as needed.
+Allowed types: `feat`, `fix`, `perf`, `build`, `ci`, `docs`, `refactor`, `test`
 
-### Profiles (`profiles/`)
-JSON configs that declare which plugins and cursor rules to install for a given project. The installer reads these to determine what to configure.
+Examples:
+```bash
+feat: [factory] add new review agent template
+fix: [hooks] resolve gateguard session timeout
+docs: [factory] update profile guide
+refactor: [lib] simplify template engine conditionals
+test: [conformance] add doctor edge case tests
+```
 
-### Cross-Tool Support
-- **Claude Code**: Uses the native plugin system (`.claude-plugin/`, agents/, skills/, commands/, hooks/)
-- **Cursor**: Rules in `cursor-rules/` synced to target repos as `.mdc` files
-- **Codex**: Mirror in `.agents/skills/` with `SKILL.md` + `agents/openai.yaml` per skill
+Do not include AI tool names (Claude, Copilot, GPT, etc.) in commit messages.
 
-## Key Design Decisions
+## semantic versioning
 
-**Commands are thin wrappers.** Every command has `disable-model-invocation: true` and simply invokes one skill. All logic lives in skills, never in commands.
+This repo follows semantic versioning. Commit types drive version bumps:
+- `feat` → minor (0.X.0)
+- `fix` → patch (0.0.X)
+- `feat!` or body contains `BREAKING CHANGE` → major (X.0.0)
 
-**Hooks read JSON from stdin, exit 0 or 2.** PreToolUse hooks receive `{"tool_input": {...}}` and block by exiting 2 with a message to stderr. The `block-unsafe-bash.sh` hook closes the escape hatch — it prevents bypassing Edit/Write hooks via `sed -i`, `python -c`, or `echo >` on protected files.
+## repo structure
 
-**The installer is idempotent.** It uses python3 for JSON parsing (with jq fallback). Plugin paths are merged into `~/.claude/settings.json` without overwriting. Second runs noop with "already configured" messages.
+```
+scripts/              # factory CLI commands (generate, install-plugin, doctor, repair)
+scripts/lib/          # foundational modules (template engine, file ops, schema validator, etc.)
+schemas/              # JSON schemas for all structured data
+templates/            # core template (agents, skills, hooks, knowledge, prompts)
+profiles/             # project profiles (JSON)
+generated/            # output: self-contained generated plugins
+tests/                # Node.js tests (factory, conformance, schemas, templates)
+hooks/                # safety hooks (commit msg, secrets, destructive ops, file protection)
+agents/               # core-superpowers team agents
+skills/               # core-superpowers workflow skills
+commands/             # core-superpowers slash commands
+plugins/              # plugin directory
+cursor-rules/         # cursor IDE rules by scope
+docs/factory/         # factory documentation (architecture, guides, references)
+specs/                # spec-driven development artifacts
+```
 
-**Session-start hook injects the using-superpowers skill** into every conversation via `hookSpecificOutput.additionalContext`. It uses python3 for safe JSON encoding of the SKILL.md content.
+## design principles
 
-## Authoring Conventions
+- **idempotent**: re-running any operation with same input produces zero changes
+- **deterministic**: same profile + template version = byte-identical output
+- **schema-validated**: all structured output validates against JSON Schema before writing
+- **test-first**: no implementation without failing tests (Article I)
+- **evidence-driven**: no vague adjectives without quantification (Article II)
 
-### Agent files (`agents/*.md`)
-YAML frontmatter with `name`, `description`, optional `model`. Body is markdown instructions.
+## key conventions
 
-### Skill files (`skills/<name>/SKILL.md`)
-YAML frontmatter with `name`, `description`. Supporting files (references, assets, scripts) sit alongside SKILL.md in the same directory.
-
-### Hook scripts (`hooks/*.sh`)
-Bash with `set -euo pipefail`. Read `INPUT=$(cat)`, parse with `jq -r '.tool_input.command // empty'`. Exit 0 to allow, exit 2 to block (message to stderr).
-
-### Plugin structure
-Each plugin mirrors: `.claude-plugin/plugin.json`, `agents/`, `skills/`, `commands/`, `hooks/hooks.json` + scripts.
-
-## Workflow
-
-The enforced development workflow across all projects:
-1. `/brainstorm` → explore requirements (small/exploratory work) — *or* `/spec` (granular SDD pipeline for cross-plugin / multi-story / contractual work)
-2. `/write-plan` → step-by-step plan (skipped when `/spec` was used; `/spec` produces tasks.md directly)
-3. `/tdd` → write tests FIRST (enforced — `/execute-plan` refuses without tests)
-4. `/execute-plan` → implement against plan + tests
-5. `/review` → dispatches arch-reviewer, code-reviewer, security-auditor in parallel
-6. `/verify` → run tests, lint, type-check
-7. `/finish` → auto-update docs, prepare branch
-
-### Spec-Driven Development (`/spec`)
-
-`/spec` is the heavier-weight entry point for complex features. Three deterministic modes:
-
-- `/spec "<feature description>"` — author a new spec from scratch.
-- `/spec import <source>` — bring an existing PRD, `docs/plans/*.md`, JIRA epic, or Confluence page into the workflow with verbatim mapping; unmapped sections flagged for engineer triage.
-- `/spec amend <spec-dir> <change>` — propose changes via engineer-approved `change-set.md`; apply with `/spec amend --apply`.
-
-`/spec` requires a one-time setup of `docs/spec/constitution.md` (project non-negotiables) and `docs/spec/defaults.md` (project-wide defaults the agent is allowed to apply — anything else becomes `[NEEDS CLARIFICATION]`). The full pipeline is constitution → defaults → specify → clarify → plan → tasks → challenge → validate, ending in a deterministic `READY` / `BLOCKED` verdict that gates `/execute-plan`. Decision tree: `skills/spec-driven-development/references/sdd-decision-tree.md`. Research with citations: `docs/research/spec-driven-development-research.md`.
-
-## Git Policy
-
-- Commits/pushes on feature branches: allowed (commit-msg-check hook validates format + blocks AI signatures)
-- Commits on `main`/`master`: blocked unless user explicitly approves (override: `ALLOW_MAIN_BRANCH_COMMIT=1`)
-- Pushes on or to `main`/`master`: blocked (use feature branches and merge requests; same override available)
-- AI attribution: blocked — no Claude, Anthropic, Copilot, GPT, or any AI tool references in commit messages. No Co-Authored-By AI lines. Commits must appear fully human-authored.
-- Commit format: `type: [scope] description` (not `type(scope):`)
+- Node.js 20+ with ESM (`"type": "module"`)
+- No external test framework — use `node:test` built-in runner
+- AJV for JSON Schema validation (only external dependency)
+- Template placeholders: `{{profile.variable}}` and `{% if condition %}`
+- Atomic writes: temp file → validate → rename
+- Hook profiles: `minimal`, `standard`, `strict` (set via `HOOK_PROFILE` env var)
+- File operations return status enums: `created`, `updated`, `skipped`, `protected`, `merged`, `conflicted`

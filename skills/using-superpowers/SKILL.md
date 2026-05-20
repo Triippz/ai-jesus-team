@@ -30,6 +30,14 @@ Before responding to ANY user request, check if a relevant skill exists. If it d
 | Dispatching Agents | — | Running multiple independent tasks in parallel | Flexible |
 | Agent Teams | — | Coordinating multi-agent work on large features | Flexible |
 | Writing Skills | — | Authoring new skills using TDD | Flexible |
+| Interrogate | `/interrogate` | Stress-testing a plan or design through adversarial interview | Flexible |
+| Interrogate with Docs | `/interrogate-with-docs` | Stress-testing with glossary sharpening, ADR creation, and code cross-referencing | Flexible |
+| Handoff | `/handoff` | Compacting conversation into a continuation doc for the next session | Rigid |
+| Terse | `/terse` | Ultra-compressed communication mode (~75% token reduction) | Flexible |
+| Orient | `/orient` | Quick codebase orientation — map of modules, callers, dependencies | Flexible |
+| Prototype | `/prototype` | Throwaway code to answer a design question before committing | Flexible |
+| Improve Architecture | `/improve-codebase-architecture` | Finding deepening opportunities — shallow→deep module refactors | Flexible |
+| Async Audit | `/async-audit` | Auditing async code for races, deadlocks, leaks, cancellation safety | Flexible |
 
 ## Workflow
 
@@ -87,3 +95,11 @@ Watch for these rationalizations. If you catch yourself thinking any of them, ST
 Available anytime during a session:
 - `/debug` — Switch to structured debugging mode
 - `/brainstorm` — Switch to collaborative exploration mode
+- `/interrogate` — Stress-test a plan or design through adversarial interview
+- `/interrogate-with-docs` — Same with glossary sharpening and ADR creation
+- `/terse` — Toggle ultra-compressed communication mode
+- `/orient` — Quick codebase map at a higher abstraction level
+- `/handoff` — Compact conversation for the next session
+- `/prototype` — Build throwaway code to answer a design question
+- `/improve-codebase-architecture` — Find deepening opportunities in the codebase
+- `/async-audit` — Audit async code for races, deadlocks, leaks, and cancellation safety

@@ -12,18 +12,12 @@ Thumbs.db
 node_modules/
 package-lock.json
 
-# Backups created by installer
+# Backups
 *.backup
 .backups/
 
 # Local settings
 .claude/settings.local.json
-
-# Terraform (for atlas-infra)
-.terraform/
-*.tfstate
-*.tfstate.backup
-.terraform.lock.hcl
 
 # Python
 __pycache__/
@@ -37,5 +31,8 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-# Figma specific
-figma-source-code/
+# Deno
+.deno/
+
+# Temporary test output
+/tmp/

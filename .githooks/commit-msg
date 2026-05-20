@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Validate commit message follows semantic commit format
+# Format: type: [scope] description  OR  type: description
+# Do NOT allow type(scope): format (breaks semantic-release)
+
+set -euo pipefail
+
+COMMIT_MSG_FILE="$1"
+
+if [ -z "$COMMIT_MSG_FILE" ]; then
+    echo "ERROR: No commit message file provided"
+    exit 1
+fi
+
+FIRST_LINE=$(head -1 "$COMMIT_MSG_FILE")
+
+# Skip merge commits
+if echo "$FIRST_LINE" | grep -qE "^Merge "; then
+    exit 0
+fi
+
+# Skip revert commits
+if echo "$FIRST_LINE" | grep -qE "^Revert "; then
+    exit 0
+fi
+
+# Validate format: type: [scope] description OR type: description
+# Allowed types: feat, fix, docs, refactor, test, perf, build, ci, chore
+# Breaking change: type!: [scope] description
+if ! echo "$FIRST_LINE" | grep -qE "^(feat|fix|docs|refactor|test|perf|build|ci|chore)!?:\s+(\[.+\]\s+)?.+"; then
+    echo ""
+    echo "ERROR: Commit message must follow semantic commit format"
+    echo ""
+    echo "  Format:  type: [scope] description"
+    echo "  Also OK: type: description (no scope)"
+    echo ""
+    echo "  Allowed types: feat, fix, docs, refactor, test, perf, build, ci, chore"
+    echo "  Breaking:      feat!: [scope] description"
+    echo ""
+    echo "  Examples:"
+    echo "    feat: [factory] add new review agent template"
+    echo "    fix: [hooks] resolve gateguard session timeout"
+    echo "    docs: update README"
+    echo ""
+    echo "  NOTE: Do NOT use type(scope): — it breaks semantic-release."
+    echo ""
+    echo "  Got: $FIRST_LINE"
+    echo ""
+    exit 1
+fi
+
+# Block AI attribution
+if echo "$FIRST_LINE" | grep -qiE "\b(claude|anthropic|copilot|gpt|openai|cursor|gemini)\b"; then
+    echo ""
+    echo "ERROR: Commit messages must not contain AI tool references."
+    echo "  Got: $FIRST_LINE"
+    echo ""
+    exit 1
+fi
